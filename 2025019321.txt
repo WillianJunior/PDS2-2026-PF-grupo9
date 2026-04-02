@@ -1,1 +1,4 @@
-Meu primeiro commit! 
+Estou ciente que a avaliacao da participacao final sera baseada unica e exclusivamente na
+quantidade de commits realizada por mim. Entendo que nao serao contabilizados commits feitos em
+desacordo com os dados de usuario cadastrados acima. A correta divisao de tarefas entre os
+membros e responsabilidade minha e de meu grupo.
