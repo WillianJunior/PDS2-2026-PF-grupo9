@@ -1,0 +1,5 @@
+ - Documentação basicamente inexistente.
+ - Diagrama de classes é legal, mas faltou a documentação.
+ - Vocês claramente montaram os contratos/interfaces com atenção, usando corretamente referências (&) const e ponteiros.
+ - A única hierarquia de classes que encontrei foi a de usuário, que está muito simplória. Não tem mais nada que vocês podem propor para crescer um pouco o projeto?
+ - Vocês criaram uma classe de UI em terminal, mas ela não fala nada de como isso poderia ser modelado ou implementado. Isso me preocupa.
