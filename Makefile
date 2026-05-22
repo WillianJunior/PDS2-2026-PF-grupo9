@@ -30,18 +30,12 @@ test: clean $(TESTES)
 
 	gcovr \
 	-r . \
-	--exclude 'tests/' \
-	--exclude 'include/' \
-	--exclude 'src/main.cpp'
 
 	@echo ""
 	@echo "===== RELATORIO HTML ====="
 
 	gcovr \
 	-r . \
-	--exclude 'tests/' \
-	--exclude 'include/' \
-	--exclude 'src/main.cpp' \
 	--html \
 	--html-details \
 	-o coverage.html
