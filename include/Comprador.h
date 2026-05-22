@@ -14,11 +14,12 @@ class  Comprador : public Usuario{
     //private:
     //somente os atributos de usuário
     public:
-    Comprador(string nome, string email, string senha);
-    void avaliarProduto(const Produto& produto);
-    void verCarrinho(const Carrinho& carrinho);
-    void consultarPedidos(const Pedido& pedido);
-    void comprar(const Produto& produto); //Acho que vai precisar ser um vetor de produtos, ou o carrinho todo
+    Comprador(string nome, string email, string senha)
+    : Usuario(nome, email, senha) {}
+    void avaliarProduto(const Produto& produto){};
+    void verCarrinho(const Carrinho& carrinho){};
+    void consultarPedidos(const Pedido& pedido){};
+    void comprar(const Produto& produto){}; //Acho que vai precisar ser um vetor de produtos, ou o carrinho todo
 };
 
 #endif

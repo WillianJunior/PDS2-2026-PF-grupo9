@@ -15,17 +15,20 @@ private:
     string _status;          
 
 public:
-    Pedido(int idPedido, string loginComprador);
+    Pedido(int idPedido, string loginComprador){};
 
-    void adicionarItem(const ItemVendido& item);
-    void set_status(const string& novoStatus);
+    void adicionarItem(const ItemVendido& item){};
+    void set_status(const string& novoStatus){};
     
-    int get_idPedido() const;
-    string get_loginComprador() const;
-    string get_status() const;
-    const vector<ItemVendido>& get_itens() const;
+    int get_idPedido() const{ return 0; };
+    string get_loginComprador() const{ return ""; };
+    string get_status() const{ return ""; };
+    const vector<ItemVendido>& get_itens() const{
+    static vector<ItemVendido> vazio;
+    return vazio;
+};
     
-    double calcularTotalPedido() const;
+    double calcularTotalPedido() const{ return 0.0; };
 };
 
 #endif

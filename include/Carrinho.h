@@ -16,12 +16,12 @@ private:
     vector<ItemCarrinho> _itens;
 
 public:
-    void adicionarProduto(Produto* produto, int quantidade);
-    void removerProduto(int idProduto);
-    void limparCarrinho();
+    void adicionarProduto(Produto* produto, int quantidade){};
+    void removerProduto(int idProduto){};
+    void limparCarrinho(){};
     
-    double calcularTotal() const;
-    const vector<ItemCarrinho>& get_itens() const; 
+    double calcularTotal() const { return 0.0; };
+    const vector<ItemCarrinho>& get_itens() const { return _itens; };
 };
 
 #endif

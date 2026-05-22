@@ -1,17 +1,36 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
+#include "../include/Pedido.h"
+#include "../include/ItemVendido.h"
 
-#include "../include/Carrinho.h"
+TEST_CASE("Teste Pedido - Estado Inicial") {
 
-TEST_CASE("Teste de adição de produto ao carrinho") {
-    Carrinho carrinho;
-    Produto produto1("Produto 1", 10.0);
-    Produto produto2("Produto 2", 20.0);
+    Pedido pedido(1, "henrique");
 
-    carrinho.adicionarProduto(produto1);
-    carrinho.adicionarProduto(produto2);
-
-    CHECK(carrinho.getProdutos().size() == 2);
-    CHECK(carrinho.getProdutos()[0].getNome() == "Produto 1");
-    CHECK(carrinho.getProdutos()[1].getNome() == "Produto 2");
+    CHECK(pedido.get_idPedido() == 1);
+    CHECK(pedido.get_loginComprador() == "henrique");
+    CHECK(pedido.get_itens().empty());
 }
+
+TEST_CASE("Teste Pedido - Adicionar Itens") {
+
+    Pedido pedido(1, "henrique");
+
+    ItemVendido item1(1, "Mouse", 50.0, 2);
+    ItemVendido item2(2, "Teclado", 100.0, 1);
+
+    pedido.adicionarItem(item1);
+    pedido.adicionarItem(item2);
+
+    CHECK(pedido.get_itens().size() == 2);
+}
+
+TEST_CASE("Teste Pedido - Status") {
+
+    Pedido pedido(1, "henrique");
+
+    pedido.set_status("ENVIADO");
+
+    CHECK(pedido.get_status() == "ENVIADO");
+}
+

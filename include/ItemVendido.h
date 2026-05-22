@@ -13,13 +13,13 @@ private:
     int _quantidade;
 
 public:
-    ItemVendido(int id, string nome, double preco, int qtd);
+    ItemVendido(int id, string nome, double preco, int qtd){};
     
-    int get_idProduto() const;
-    string get_nomeProduto() const;
-    double get_precoNaVenda() const;
-    int get_quantidade() const;
-    double get_subtotal() const; 
+    int get_idProduto() const{return 0;};
+    string get_nomeProduto() const{return "";};
+    double get_precoNaVenda() const{return 0.0;};
+    int get_quantidade() const{return 0;};
+    double get_subtotal() const{return 0.0;}; 
 };
 
 #endif

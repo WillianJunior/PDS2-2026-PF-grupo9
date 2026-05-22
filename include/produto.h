@@ -25,7 +25,7 @@ public:
      * @param nome Nome do item.
      * @param preco Valor de venda.
      */
-    Produto(int id, std::string nome, double preco);
+    Produto(int id, std::string nome, double preco){};
 
     std::string get_nome() const;
     double get_preco() const;
