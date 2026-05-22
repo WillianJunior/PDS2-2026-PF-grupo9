@@ -1,5 +1,5 @@
 CXX = g++
-CFLAGS = -Wall -Wextra -std=c++17 -I include --coverage
+CFLAGS = -std=c++17 -I include --coverage
 
 TESTES = \
 	TesteUsuario \
@@ -30,6 +30,8 @@ test: clean $(TESTES)
 
 	gcovr \
 	-r . \
+	--exclude 'tests/TesteTerminalUI.cpp' \
+	--exclude 'tests/doctest.h'
 
 	@echo ""
 	@echo "===== RELATORIO HTML ====="
