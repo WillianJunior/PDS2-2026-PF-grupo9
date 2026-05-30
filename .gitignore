@@ -1,0 +1,18 @@
+# Arquivos de cobertura (Gcov e HTML gerados pelo gcovr)
+*.gcda
+*.gcno
+*.gcov
+coverage*
+coverage/
+
+# Arquivos executáveis gerados pelo Makefile
+TesteUsuario
+TesteTerminalUI
+TesteGerenciadorUsuarios
+TesteComprador
+TesteItemVendido
+TestePedido
+TesteCarrinho
+TesteAnuncio
+TesteAnunciante
+ecommerce.exe
