@@ -95,33 +95,98 @@ void TerminalUI::menuEscolhaPerfil(Usuario* usuario) {
         cout << "Selecione o seu perfil de acesso:" << endl;
         cout << "1 - Comprador" << endl;
         cout << "2 - Anunciante" << endl;
-        cout << "3 - Voltar ao Menu Anterior" << endl;
+        cout << "3 - Sair da Conta (Logout)" << endl;
         cout << "Escolha uma opcao: ";
         cin >> opcao;
 
         switch (opcao) {
             case 1:
-                limparTela();
-                cout << "\nVoce entrou como Comprador." << endl;
-                // Pausa antes de retornar ao menu de perfil
-                cout << "\nPressione Enter para voltar...";
-                cin.ignore();
-                cin.get();
+                menuComprador(usuario); // Pula para a tela de compras
                 break;
             case 2:
-                limparTela();
-                cout << "\nVoce entrou como Anunciante." << endl;
-                // Pausa antes de retornar ao menu de perfil
-                cout << "\nPressione Enter para voltar...";
-                cin.ignore();
-                cin.get();
+                menuAnunciante(usuario); // Pula para a tela de vendas
                 break;
             case 3:
-                cout << "\nVoltando ao menu anterior." << endl;
+                cout << "\nFazendo logout..." << endl;
                 break;
             default:
                 cout << "\nOpcao invalida! Tente novamente." << endl;
                 break;
         }
     } while (opcao != 3); 
+}
+
+// MÓDULO DO ANUNCIANTE
+
+void TerminalUI::menuAnunciante(Usuario* usuario) {
+    int opcao;
+    do {
+        limparTela();
+        cout << "\n=== Painel do Anunciante ===" << endl;
+        cout << "1 - Cadastrar Novo Produto" << endl;
+        cout << "2 - Ver Minha Vitrine (Produtos Cadastrados)" << endl;
+        cout << "3 - Voltar" << endl;
+        cout << "Escolha uma opcao: ";
+        cin >> opcao;
+
+        if (opcao == 1) {
+            limparTela();
+            int id;
+            string nome;
+            double preco;
+
+            cout << "\n--- Cadastro de Produto ---" << endl;
+            cout << "Digite um ID (numero inteiro) para o produto: ";
+            cin >> id;
+
+            cout << "Digite o nome do produto: ";
+            cin.ignore(); // Limpa o "Enter" que ficou preso na memória antes do getline
+            getline(cin, nome);
+
+            cout << "Digite o preco do produto: R$ ";
+            cin >> preco;
+
+            // Chama o nosso gerenciador mágico que salva no txt
+            gerenciadorProdutos.cadastrarProduto(id, nome, preco);
+
+            cout << "\nProduto cadastrado e salvo com sucesso!" << endl;
+            cout << "\nPressione Enter para continuar...";
+            cin.ignore();
+            cin.get();
+
+        } else if (opcao == 2) {
+            limparTela();
+            cout << "\n--- Vitrine de Produtos ---" << endl;
+            
+            // Puxa a lista de produtos carregada do arquivo
+            const auto& produtos = gerenciadorProdutos.get_produtos();
+
+            if (produtos.empty()) {
+                cout << "Nenhum produto cadastrado ainda." << endl;
+            } else {
+                for (const auto& p : produtos) {
+                    cout << "ID: " << p.get_id() 
+                         << " | Nome: " << p.get_nome() 
+                         << " | Preco: R$ " << p.get_preco() << endl;
+                }
+            }
+            
+            cout << "\nPressione Enter para continuar...";
+            cin.ignore();
+            cin.get();
+        }
+    } while (opcao != 3);
+}
+
+// MÓDULO DO COMPRADOR
+
+void TerminalUI::menuComprador(Usuario* usuario) {
+    limparTela();
+    cout << "\n=== Area de Compras ===" << endl;
+    cout << "Bem-vindo a loja, " << usuario->getNome() << "!" << endl;
+    cout << "(A funcionalidade de Carrinho de Compras estara disponivel em breve!)" << endl;
+    
+    cout << "\nPressione Enter para voltar...";
+    cin.ignore();
+    cin.get();
 }
