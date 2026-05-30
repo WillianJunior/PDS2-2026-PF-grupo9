@@ -116,8 +116,9 @@ void TerminalUI::menuEscolhaPerfil(Usuario* usuario) {
     } while (opcao != 3); 
 }
 
+// ==========================================
 // MÓDULO DO ANUNCIANTE
-
+// ==========================================
 void TerminalUI::menuAnunciante(Usuario* usuario) {
     int opcao;
     do {
@@ -131,29 +132,67 @@ void TerminalUI::menuAnunciante(Usuario* usuario) {
 
         if (opcao == 1) {
             limparTela();
-            int id;
-            string nome;
+            int id, opcaoCat, opcaoSub;
+            string nome, categoriaEscolhida, subcategoriaEscolhida;
             double preco;
 
             cout << "\n--- Cadastro de Produto ---" << endl;
-            cout << "Digite um ID (numero inteiro) para o produto: ";
+            cout << "Digite o ID do produto: ";
             cin >> id;
 
             cout << "Digite o nome do produto: ";
-            cin.ignore(); // Limpa o "Enter" que ficou preso na memória antes do getline
+            cin.ignore();
             getline(cin, nome);
 
             cout << "Digite o preco do produto: R$ ";
             cin >> preco;
 
-            // Chama o nosso gerenciador mágico que salva no txt
-            gerenciadorProdutos.cadastrarProduto(id, nome, preco);
+            // 1. MENU TRAVADO DE CATEGORIA
+            cout << "\nEscolha a Categoria:" << endl;
+            cout << "1 - Veiculo\n2 - Eletrodomestico\n3 - Roupa" << endl;
+            cout << "Opcao: ";
+            cin >> opcaoCat;
 
-            cout << "\nProduto cadastrado e salvo com sucesso!" << endl;
+            if (opcaoCat == 1) categoriaEscolhida = "Veiculo";
+            else if (opcaoCat == 2) categoriaEscolhida = "Eletrodomestico";
+            else categoriaEscolhida = "Roupa";
+
+            // 2. MENU TRAVADO DE SUBCATEGORIA
+            cout << "\nEscolha a Subcategoria:" << endl;
+            if (categoriaEscolhida == "Veiculo") {
+                cout << "1 - Carro\n2 - Moto\n3 - Caminhao" << endl;
+                cout << "Opcao: ";
+                cin >> opcaoSub;
+                if (opcaoSub == 1) subcategoriaEscolhida = "Carro";
+                else if (opcaoSub == 2) subcategoriaEscolhida = "Moto";
+                else subcategoriaEscolhida = "Caminhao";
+            } 
+            else if (categoriaEscolhida == "Eletrodomestico") {
+                cout << "1 - Cozinha\n2 - Quarto\n3 - Escritorio\n4 - Gamer" << endl;
+                cout << "Opcao: ";
+                cin >> opcaoSub;
+                if (opcaoSub == 1) subcategoriaEscolhida = "Cozinha";
+                else if (opcaoSub == 2) subcategoriaEscolhida = "Quarto";
+                else if (opcaoSub == 3) subcategoriaEscolhida = "Escritorio";
+                else subcategoriaEscolhida = "Gamer";
+            }
+            else if (categoriaEscolhida == "Roupa") {
+                cout << "1 - Camisa\n2 - Calca\n3 - Tenis" << endl;
+                cout << "Opcao: ";
+                cin >> opcaoSub;
+                if (opcaoSub == 1) subcategoriaEscolhida = "Camisa";
+                else if (opcaoSub == 2) subcategoriaEscolhida = "Calca";
+                else subcategoriaEscolhida = "Tenis";
+            }
+
+            // Agora enviamos as strings prontas para o gerenciador
+            gerenciadorProdutos.cadastrarProduto(id, nome, preco, categoriaEscolhida, subcategoriaEscolhida);
+
+            cout << "\nProduto cadastrado com sucesso!" << endl;
             cout << "\nPressione Enter para continuar...";
             cin.ignore();
             cin.get();
-
+            
         } else if (opcao == 2) {
             limparTela();
             cout << "\n--- Vitrine de Produtos ---" << endl;
@@ -167,7 +206,8 @@ void TerminalUI::menuAnunciante(Usuario* usuario) {
                 for (const auto& p : produtos) {
                     cout << "ID: " << p.get_id() 
                          << " | Nome: " << p.get_nome() 
-                         << " | Preco: R$ " << p.get_preco() << endl;
+                         << "\n  Categoria: " << p.get_categoria() << " > " << p.get_subcategoria()
+                         << "\n  Preco: R$ " << p.get_preco() << "\n" << endl;
                 }
             }
             
@@ -178,8 +218,9 @@ void TerminalUI::menuAnunciante(Usuario* usuario) {
     } while (opcao != 3);
 }
 
+// ==========================================
 // MÓDULO DO COMPRADOR
-
+// ==========================================
 void TerminalUI::menuComprador(Usuario* usuario) {
     limparTela();
     cout << "\n=== Area de Compras ===" << endl;

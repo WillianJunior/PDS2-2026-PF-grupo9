@@ -14,37 +14,41 @@ void GerenciadorProdutos::carregarProdutos() {
 
     std::string linha;
     while (std::getline(arquivo, linha)) {
+
         std::stringstream ss(linha);
-        std::string idStr, nome, precoStr;
+        std::string idStr, nome, precoStr, categoria, subcategoria;
 
         // Lê separando por vírgula
         std::getline(ss, idStr, ',');
         std::getline(ss, nome, ',');
         std::getline(ss, precoStr, ',');
+        std::getline(ss, categoria, ',');   
+        std::getline(ss, subcategoria, ','); 
 
         if (!idStr.empty() && !nome.empty() && !precoStr.empty()) {
-            // Converte os textos para os tipos corretos (int e double)
             int id = std::stoi(idStr);
             double preco = std::stod(precoStr);
             
-            _produtos.emplace_back(id, nome, preco);
+            _produtos.emplace_back(id, nome, preco, categoria, subcategoria);
         }
     }
     arquivo.close();
 }
 
 void GerenciadorProdutos::salvarProdutoNoArquivo(const Produto& produto) {
-    std::ofstream arquivo(NOME_ARQUIVO, std::ios::app); // ios::app para adicionar no fim
+    std::ofstream arquivo(NOME_ARQUIVO, std::ios::app);
     if (arquivo.is_open()) {
         arquivo << produto.get_id() << ","
                 << produto.get_nome() << ","
-                << produto.get_preco() << "\n";
+                << produto.get_preco() << ","
+                << produto.get_categoria() << ","     // <-- Salva a categoria com vírgula
+                << produto.get_subcategoria() << "\n"; // <-- Salva a subcategoria com quebra de linha
         arquivo.close();
     }
 }
 
-void GerenciadorProdutos::cadastrarProduto(int id, const std::string& nome, double preco) {
-    Produto novo(id, nome, preco);
+void GerenciadorProdutos::cadastrarProduto(int id, const std::string& nome, double preco, const std::string& categoria, const std::string& subcategoria) {
+    Produto novo(id, nome, preco, categoria, subcategoria);
     _produtos.push_back(novo);
     salvarProdutoNoArquivo(novo);
 }

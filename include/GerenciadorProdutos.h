@@ -17,7 +17,7 @@ public:
     GerenciadorProdutos();
     
     // Cadastra um produto e já grava no arquivo
-    void cadastrarProduto(int id, const std::string& nome, double preco);
+    void cadastrarProduto(int id, const std::string& nome, double preco, const std::string& categoria, const std::string& subcategoria);
     
     // Retorna a lista de produtos para exibir na vitrine
     const std::vector<Produto>& get_produtos() const;
