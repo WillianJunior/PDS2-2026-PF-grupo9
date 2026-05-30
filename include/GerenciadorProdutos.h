@@ -12,18 +12,19 @@ private:
 
     void carregarProdutos();
     void salvarProdutoNoArquivo(const Produto& produto);
+    void atualizarArquivoCompleto(); 
 
 public:
     GerenciadorProdutos();
     
-    // Cadastra um produto e já grava no arquivo
-    void cadastrarProduto(int id, const std::string& nome, double preco, const std::string& categoria, const std::string& subcategoria);
+    // O ID sumiu daqui, mas passamos o idUsuarioLogado para fazer a mágica lá dentro!
+    void cadastrarProduto(const std::string& nome, double preco, const std::string& categoria, const std::string& subcategoria, const std::string& loginAnunciante, int idUsuarioLogado);
     
-    // Retorna a lista de produtos para exibir na vitrine
+    // ID agora é string
+    bool editarProduto(const std::string& id, const std::string& novoNome, double novoPreco, const std::string& novaCat, const std::string& novaSub);
+    
     const std::vector<Produto>& get_produtos() const;
-    
-    // Busca um produto específico pelo ID (útil para o carrinho)
-    Produto* buscarProdutoPorId(int id);
+    Produto* buscarProdutoPorId(const std::string& id); // ID agora é string
 };
 
 #endif

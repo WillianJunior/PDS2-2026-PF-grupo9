@@ -1,3 +1,2 @@
-1,Polystation 5,1500,Eletrodomestico,Gamer
-2,T�nis Nike,250,Roupa,Calcado 
-3,Geladeira,1800,Eletrodomestico,Cozinha
+0000100001,Nike Air Force,500,Roupa,Tenis,igorhendrix11@gmail.com
+0000100002,Honda Civic,95000,Veiculo,Carro,igorhendrix11@gmail.com

@@ -5,20 +5,27 @@
 
 class Produto {
 private:
-    int _id;
+    std::string _id; // <-- AGORA É STRING! Ex: "0000100001"
     std::string _nome;
     double _preco;
-    std::string _categoria;     // Guardará textos como "Veiculo"
-    std::string _subcategoria;  // Guardará textos como "Carro"
+    std::string _categoria;
+    std::string _subcategoria;
+    std::string _loginAnunciante;
 
 public:
-    Produto(int id, std::string nome, double preco, std::string categoria, std::string subcategoria);
+    Produto(std::string id, std::string nome, double preco, std::string categoria, std::string subcategoria, std::string loginAnunciante);
 
-    int get_id() const;
+    std::string get_id() const; // <-- AGORA RETORNA STRING
     std::string get_nome() const;
     double get_preco() const;
     std::string get_categoria() const;
     std::string get_subcategoria() const;
+    std::string get_login_anunciante() const;
+
+    void set_nome(const std::string& nome);
+    void set_preco(double preco);
+    void set_categoria(const std::string& categoria);
+    void set_subcategoria(const std::string& subcategoria);
 };
 
 #endif

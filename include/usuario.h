@@ -7,18 +7,20 @@ using namespace std;
 
 class Usuario {
 private:
+    int _id; // <-- NOVO: O identificador único do usuário
     string nome;
     string login;
     string senha;
 public:
-    Usuario(string nome, string email, string senha);
+    Usuario(int id, string nome, string email, string senha);
 
+    virtual ~Usuario() = default;
+
+    int getId() const; // <-- NOVO
     bool validarLogin(const string& loginIngressado, const string& senhaIngressado) const;
     string getNome() const;
     string getLogin() const;
     string getSenha() const;
-
-    virtual ~Usuario() = default;
 };
 
 #endif
