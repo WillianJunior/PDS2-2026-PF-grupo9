@@ -17,6 +17,8 @@ public:
     string getNome() const;
     string getLogin() const;
     string getSenha() const;
+
+    virtual ~Usuario() = default;
 };
 
 #endif
