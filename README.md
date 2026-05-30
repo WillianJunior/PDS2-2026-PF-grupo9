@@ -5,7 +5,6 @@ Alunos:
 - Marcelo Rodrigues
 - Igor Hendrix
 - Henrique de Freitas
-- Rafael Estevão
 
 ​Descrição:
 - Desenvolvimento de uma plataforma de e-commerce via terminal em C++ com arquitetura modular, inspirada no modelo da OLX. O sistema utiliza orientação a objetos para gerenciar perfis híbridos (comprador e anunciante) e categorias de produtos novos e usados através de persistência de dados em arquivos .txt.
@@ -24,4 +23,3 @@ Contratos definidos (até o momento):
 - Produto
 - Carrinho
 - Pedido
--
