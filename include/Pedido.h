@@ -3,32 +3,41 @@
 
 #include <vector>
 #include <string>
-#include "ItemVendido.h" // Inclui a estrutura de histórico de itens
-
-using namespace std;
+#include "ItemVendido.h" 
 
 class Pedido {
 private:
     int _idPedido;
-    string _loginComprador;
-    vector<ItemVendido> _itens;
-    string _status;          
+    std::string _loginComprador;
+    std::vector<ItemVendido> _itens;
+    std::string _status;          
 
 public:
-    Pedido(int idPedido, string loginComprador){};
+    // Construtor
+    Pedido(int idPedido, std::string loginComprador)
+        : _idPedido(idPedido), _loginComprador(loginComprador), _status("Aguardando Pagamento") {}
 
-    void adicionarItem(const ItemVendido& item){};
-    void set_status(const string& novoStatus){};
+    // Adiciona a cópia do item vendido na lista do pedido
+    void adicionarItem(const ItemVendido& item) {
+        _itens.push_back(item);
+    }
+
+    void set_status(const std::string& novoStatus) { _status = novoStatus; }
     
-    int get_idPedido() const{ return 0; };
-    string get_loginComprador() const{ return ""; };
-    string get_status() const{ return ""; };
-    const vector<ItemVendido>& get_itens() const{
-    static vector<ItemVendido> vazio;
-    return vazio;
-};
+    int get_idPedido() const { return _idPedido; }
+    std::string get_loginComprador() const { return _loginComprador; }
+    std::string get_status() const { return _status; }
     
-    double calcularTotalPedido() const{ return 0.0; };
+    const std::vector<ItemVendido>& get_itens() const { return _itens; }
+    
+    // Calcula o total somando os subtotais de cada ItemVendido
+    double calcularTotalPedido() const { 
+        double total = 0.0;
+        for (const auto& item : _itens) {
+            total += item.get_subtotal();
+        }
+        return total;
+    }
 };
 
 #endif
