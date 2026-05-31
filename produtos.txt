@@ -1,2 +1,5 @@
 0000100001,Nike Air Force,500,Roupa,Tenis,igorhendrix11@gmail.com
 0000100002,Honda Civic,95000,Veiculo,Carro,igorhendrix11@gmail.com
+0001000003,PC Gamer,5000,Eletrodomestico,Gamer,igor@ufmg.br
+0001000004,PC Gamer,5000,Eletrodomestico,Gamer,igor@ufmg.br
+0001400005,Camiseta,45,Roupa,Camisa,v@m.com

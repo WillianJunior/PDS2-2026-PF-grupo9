@@ -10,10 +10,8 @@ coverage/
 TesteUsuario
 TesteTerminalUI
 TesteGerenciadorUsuarios
-TesteComprador
 TesteItemVendido
 TestePedido
 TesteCarrinho
 TesteAnuncio
-TesteAnunciante
 ecommerce.exe
