@@ -1,7 +1,7 @@
 #include "../include/GerenciadorProdutos.hpp"
 #include <fstream>
 #include <sstream>
-#include <iomanip> // <-- Biblioteca necessária para preencher os zeros!
+#include <iomanip>
 
 GerenciadorProdutos::GerenciadorProdutos() {
     carregarProdutos();
