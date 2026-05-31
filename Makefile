@@ -1,37 +1,40 @@
 CXX = g++
-CFLAGS = -std=c++17 -I include --coverage
+CFLAGS = -std=gnu++17 -I include --coverage -DDOCTEST_CONFIG_NO_MULTITHREADING
+
+BUILD_DIR = build
+COVERAGE_DIR = coverage
 
 TESTES = \
-	TesteUsuario \
-	TesteTerminalUI \
-	TesteGerenciadorUsuarios \
-	TesteComprador \
-	TesteItemVendido \
-	TestePedido \
-	TesteCarrinho \
-	TesteAnuncio \
-	TesteAnunciante
+	$(BUILD_DIR)/Testeusuario \
+	$(BUILD_DIR)/TesteTerminalUI \
+	$(BUILD_DIR)/TesteGerenciadorUsuarios \
+	$(BUILD_DIR)/TesteitemVendido \
+	$(BUILD_DIR)/TestePedido \
+	$(BUILD_DIR)/TesteCarrinho \
+	$(BUILD_DIR)/TesteAnuncio
 
 all: test
 
-test: clean $(TESTES)
-	-./TesteUsuario
-	-./TesteTerminalUI
-	-./TesteGerenciadorUsuarios
-	-./TesteComprador
-	-./TesteItemVendido
-	-./TestePedido
-	-./TesteCarrinho
-	-./TesteAnuncio
-	-./TesteAnunciante
+dirs:
+	@mkdir -p $(BUILD_DIR)
+	@mkdir -p $(COVERAGE_DIR)
+
+test: clean dirs $(TESTES)
+	-./$(BUILD_DIR)/Testeusuario
+	-./$(BUILD_DIR)/TesteTerminalUI
+	-./$(BUILD_DIR)/TesteGerenciadorUsuarios
+	-./$(BUILD_DIR)/TesteitemVendido
+	-./$(BUILD_DIR)/TestePedido
+	-./$(BUILD_DIR)/TesteCarrinho
+	-./$(BUILD_DIR)/TesteAnuncio
+
 
 	@echo ""
 	@echo "===== RELATORIO DE COBERTURA ====="
 
 	gcovr \
 	-r . \
-	--exclude 'tests/TesteTerminalUI.cpp' \
-	--exclude 'tests/doctest.h'
+	--exclude 'tests/.*'
 
 	@echo ""
 	@echo "===== RELATORIO HTML ====="
@@ -40,69 +43,36 @@ test: clean $(TESTES)
 	-r . \
 	--html \
 	--html-details \
-	-o coverage.html
+	-o $(COVERAGE_DIR)/coverage.html
 
 	@echo ""
-	@echo "Arquivo gerado: coverage.html"
+	@echo "Arquivo gerado: $(COVERAGE_DIR)/coverage.html"
 
-TesteUsuario:
-	$(CXX) $(CFLAGS) tests/TesteUsuario.cpp \
-	src/usuario.cpp \
-	-o TesteUsuario
+$(BUILD_DIR)/Testeusuario:
+	$(CXX) $(CFLAGS) tests/TesteUsuario.cpp src/usuario.cpp -o $@
 
-TesteTerminalUI:
-	$(CXX) $(CFLAGS) tests/TesteTerminalUI.cpp \
-	src/TerminalUI.cpp \
-	src/GerenciadorUsuarios.cpp \
-	src/usuario.cpp \
-	-o TesteTerminalUI
+$(BUILD_DIR)/TesteTerminalUI:
+	$(CXX) $(CFLAGS) tests/TesteTerminalUI.cpp src/TerminalUI.cpp src/GerenciadorUsuarios.cpp src/GerenciadorProdutos.cpp src/Carrinho.cpp src/itemVendido.cpp src/produto.cpp src/usuario.cpp -o $@
 
-TesteGerenciadorUsuarios:
-	$(CXX) $(CFLAGS) tests/TesteGerenciadorUsuarios.cpp \
-	src/GerenciadorUsuarios.cpp \
-	src/usuario.cpp \
-	-o TesteGerenciadorUsuarios
+$(BUILD_DIR)/TesteGerenciadorUsuarios:
+	$(CXX) $(CFLAGS) tests/TesteGerenciadorUsuarios.cpp src/GerenciadorUsuarios.cpp src/usuario.cpp -o $@
 
-TesteComprador:
-	$(CXX) $(CFLAGS) tests/TesteComprador.cpp \
-	src/Comprador.cpp \
-	src/usuario.cpp \
-	-o TesteComprador
+$(BUILD_DIR)/TesteitemVendido:
+	$(CXX) $(CFLAGS) tests/TesteItemVendido.cpp src/itemVendido.cpp -o $@
 
-TesteItemVendido:
-	$(CXX) $(CFLAGS) tests/TesteItemVendido.cpp \
-	src/ItemVendido.cpp \
-	-o TesteItemVendido
+$(BUILD_DIR)/TestePedido:
+	$(CXX) $(CFLAGS) tests/TestePedido.cpp src/Pedido.cpp src/itemVendido.cpp -o $@
 
-TestePedido:
-	$(CXX) $(CFLAGS) tests/TestePedido.cpp \
-	src/Pedido.cpp \
-	src/ItemVendido.cpp \
-	-o TestePedido
+$(BUILD_DIR)/TesteCarrinho:
+	$(CXX) $(CFLAGS) tests/TesteCarrinho.cpp src/Carrinho.cpp src/itemVendido.cpp src/produto.cpp -o $@
 
-TesteCarrinho:
-	$(CXX) $(CFLAGS) tests/TesteCarrinho.cpp \
-	src/Carrinho.cpp \
-	src/produto.cpp \
-	-o TesteCarrinho
+$(BUILD_DIR)/TesteAnuncio:
+	$(CXX) $(CFLAGS) tests/TesteAnuncio.cpp src/Anuncio.cpp src/produto.cpp src/usuario.cpp -o $@
 
-TesteAnuncio:
-	$(CXX) $(CFLAGS) tests/TesteAnuncio.cpp \
-	src/produto.cpp \
-	src/usuario.cpp \
-	-o TesteAnuncio
-
-TesteAnunciante:
-	$(CXX) $(CFLAGS) tests/TesteAnunciante.cpp \
-	src/usuario.cpp \
-	src/produto.cpp \
-	-o TesteAnunciante
 
 clean:
-	rm -f $(TESTES)
+	rm -rf $(BUILD_DIR)
+	rm -rf $(COVERAGE_DIR)
 	rm -f *.gcda *.gcno *.gcov
-	rm -f coverage.html
-	rm -f coverage.info
-	rm -rf coverage
 	rm -f src/*.gcda src/*.gcno
 	rm -f tests/*.gcda tests/*.gcno

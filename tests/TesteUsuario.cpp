@@ -4,7 +4,7 @@
 
 TEST_CASE("Teste Usuario - Construtor e Getters") {
 
-    Usuario usuario("Henrique", "henrique@gmail.com", "123");
+    Usuario usuario(3, "Henrique", "henrique@gmail.com", "123");
 
     CHECK(usuario.getNome() == "Henrique");
     CHECK(usuario.getLogin() == "henrique@gmail.com");
@@ -13,7 +13,7 @@ TEST_CASE("Teste Usuario - Construtor e Getters") {
 
 TEST_CASE("Teste Usuario - Validacao de Login") {
 
-    Usuario usuario("Henrique", "henrique@gmail.com", "123");
+    Usuario usuario(3, "Henrique", "henrique@gmail.com", "123");
 
     CHECK(usuario.validarLogin("henrique@gmail.com", "123") == true);
     CHECK(usuario.validarLogin("errado", "123") == false);

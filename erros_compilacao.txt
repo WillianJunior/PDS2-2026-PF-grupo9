@@ -1,0 +1,1600 @@
+rm -rf build
+rm -rf coverage
+rm -f *.gcda *.gcno *.gcov
+rm -f src/*.gcda src/*.gcno
+rm -f tests/*.gcda tests/*.gcno
+g++ -std=gnu++17 -I include --coverage -DDOCTEST_CONFIG_NO_MULTITHREADING tests/TesteUsuario.cpp src/usuario.cpp -o build/Testeusuario
+g++ -std=gnu++17 -I include --coverage -DDOCTEST_CONFIG_NO_MULTITHREADING tests/TesteTerminalUI.cpp src/TerminalUI.cpp src/GerenciadorUsuarios.cpp src/GerenciadorProdutos.cpp src/Carrinho.cpp src/itemVendido.cpp src/produto.cpp src/usuario.cpp -o build/TesteTerminalUI
+g++ -std=gnu++17 -I include --coverage -DDOCTEST_CONFIG_NO_MULTITHREADING tests/TesteGerenciadorUsuarios.cpp src/GerenciadorUsuarios.cpp src/usuario.cpp -o build/TesteGerenciadorUsuarios
+g++ -std=gnu++17 -I include --coverage -DDOCTEST_CONFIG_NO_MULTITHREADING tests/TesteItemVendido.cpp src/itemVendido.cpp -o build/TesteitemVendido
+tests/TesteItemVendido.cpp: In function 'void DOCTEST_ANON_FUNC_4()':
+tests/TesteItemVendido.cpp:7:41: error: no matching function for call to 'ItemVendido::ItemVendido(int, const char [6], double, int)'
+     ItemVendido item(1, "Mouse", 50.0, 2);
+                                         ^
+In file included from tests/TesteItemVendido.cpp:3:0:
+tests/../include/itemVendido.hpp:14:5: note: candidate: ItemVendido::ItemVendido(std::__cxx11::string, std::__cxx11::string, double, int)
+     ItemVendido(std::string id, std::string nome, double preco, int qtd);
+     ^~~~~~~~~~~
+tests/../include/itemVendido.hpp:14:5: note:   no known conversion for argument 1 from 'int' to 'std::__cxx11::string {aka std::__cxx11::basic_string<char>}'
+tests/../include/itemVendido.hpp:6:7: note: candidate: ItemVendido::ItemVendido(const ItemVendido&)
+ class ItemVendido {
+       ^~~~~~~~~~~
+tests/../include/itemVendido.hpp:6:7: note:   candidate expects 1 argument, 4 provided
+tests/../include/itemVendido.hpp:6:7: note: candidate: ItemVendido::ItemVendido(ItemVendido&&)
+tests/../include/itemVendido.hpp:6:7: note:   candidate expects 1 argument, 4 provided
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:32: error: no match for 'operator==' (operand types are 'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' and 'int')
+     CHECK(item.get_idProduto() == 1);
+                                 
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+tests/doctest.hpp:1934:44: note: candidate: template<class R> decltype (((void)((declval<L>() == declval<R>())), doctest::detail::Result{})) doctest::detail::Expression_lhs<L>::operator==(R&&) [with R = R; L = const std::__cxx11::basic_string<char>&&]
+     DOCTEST_NOINLINE SFINAE_OP(Result, op) operator op(R &&rhs) {                                                      \
+                                            ^
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+tests/doctest.hpp:1934:44: note:   template argument deduction/substitution failed:
+     DOCTEST_NOINLINE SFINAE_OP(Result, op) operator op(R &&rhs) {                                                      \
+                                            ^
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+tests/doctest.hpp: In substitution of 'template<class R> decltype (((void)((declval<L>() == declval<R>())), doctest::detail::Result{})) doctest::detail::Expression_lhs<L>::operator==(R&&) [with R = int]':
+tests/TesteItemVendido.cpp:9:5:   required from here
+tests/doctest.hpp:2000:45: error: no match for 'operator==' (operand types are 'const std::__cxx11::basic_string<char>' and 'int')
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:8325:6: note: candidate: bool doctest::operator==(const doctest::String&, const doctest::String&)
+ bool operator==(const String &lhs, const String &rhs) {
+      ^~~~~~~~
+tests/doctest.hpp:8325:6: note:   no known conversion for argument 2 from 'int' to 'const doctest::String&'
+tests/doctest.hpp:6604:6: note: candidate: bool doctest::operator==(const doctest::String&, const doctest::Contains&)
+ bool operator==(const String &lhs, const Contains &rhs) {
+      ^~~~~~~~
+tests/doctest.hpp:6604:6: note:   no known conversion for argument 2 from 'int' to 'const doctest::Contains&'
+tests/doctest.hpp:6608:6: note: candidate: bool doctest::operator==(const doctest::Contains&, const doctest::String&)
+ bool operator==(const Contains &lhs, const String &rhs) {
+      ^~~~~~~~
+tests/doctest.hpp:6608:6: note:   no known conversion for argument 1 from 'const std::__cxx11::basic_string<char>' to 'const doctest::Contains&'
+tests/doctest.hpp:6531:6: note: candidate: bool doctest::operator==(double, const doctest::Approx&)
+ bool operator==(double lhs, const Approx &rhs) {
+      ^~~~~~~~
+tests/doctest.hpp:6531:6: note:   no known conversion for argument 1 from 'const std::__cxx11::basic_string<char>' to 'double'
+tests/doctest.hpp:6537:6: note: candidate: bool doctest::operator==(const doctest::Approx&, double)
+ bool operator==(const Approx &lhs, double rhs) {
+      ^~~~~~~~
+tests/doctest.hpp:6537:6: note:   no known conversion for argument 1 from 'const std::__cxx11::basic_string<char>' to 'const doctest::Approx&'
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\unordered_set:48:0,
+                 from tests/doctest.hpp:3946,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\unordered_set.h:1423:5: note: candidate: template<class _Value, class _Hash, class _Pred, class _Alloc> bool std::operator==(const std::unordered_multiset<_Value, _Hash, _Pred, _Alloc>&, const std::unordered_multiset<_Value, _Hash, _Pred, _Alloc>&)
+     operator==(const unordered_multiset<_Value, _Hash, _Pred, _Alloc>& __x,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\unordered_set.h:1423:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   'const std::__cxx11::basic_string<char>' is not derived from 'const std::unordered_multiset<_Value, _Hash, _Pred, _Alloc>'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\unordered_set:48:0,
+                 from tests/doctest.hpp:3946,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\unordered_set.h:1411:5: note: candidate: template<class _Value, class _Hash, class _Pred, class _Alloc> bool std::operator==(const std::unordered_set<_Value, _Hash, _Pred, _Alloc>&, const std::unordered_set<_Value, _Hash, _Pred, _Alloc>&)
+     operator==(const unordered_set<_Value, _Hash, _Pred, _Alloc>& __x,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\unordered_set.h:1411:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   'const std::__cxx11::basic_string<char>' is not derived from 'const std::unordered_set<_Value, _Hash, _Pred, _Alloc>'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\map:62:0,
+                 from tests/doctest.hpp:3945,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_multimap.h:972:5: note: candidate: template<class _Key, class _Tp, class _Compare, class _Alloc> bool std::operator==(const std::multimap<_Key, _Tp, _Compare, _Alloc>&, const std::multimap<_Key, _Tp, _Compare, _Alloc>&)
+     operator==(const multimap<_Key, _Tp, _Compare, _Alloc>& __x,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_multimap.h:972:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   'const std::__cxx11::basic_string<char>' is not derived from 'const std::multimap<_Key, _Tp, _Compare, _Alloc>'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\map:61:0,
+                 from tests/doctest.hpp:3945,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_map.h:1307:5: note: candidate: template<class _Key, class _Tp, class _Compare, class _Alloc> bool std::operator==(const std::map<_Key, _Tp, _Compare, _Alloc>&, const std::map<_Key, _Tp, _Compare, _Alloc>&)
+     operator==(const map<_Key, _Tp, _Compare, _Alloc>& __x,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_map.h:1307:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   'const std::__cxx11::basic_string<char>' is not derived from 'const std::map<_Key, _Tp, _Compare, _Alloc>'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\set:62:0,
+                 from tests/doctest.hpp:3944,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_multiset.h:823:5: note: candidate: template<class _Key, class _Compare, class _Alloc> bool std::operator==(const std::multiset<_Key, _Compare, _Alloc>&, const std::multiset<_Key, _Compare, _Alloc>&)
+     operator==(const multiset<_Key, _Compare, _Alloc>& __x,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_multiset.h:823:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   'const std::__cxx11::basic_string<char>' is not derived from 'const std::multiset<_Key, _Compare, _Alloc>'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\set:61:0,
+                 from tests/doctest.hpp:3944,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_set.h:840:5: note: candidate: template<class _Key, class _Compare, class _Alloc> bool std::operator==(const std::set<_Key, _Compare, _Alloc>&, const std::set<_Key, _Compare, _Alloc>&)
+     operator==(const set<_Key, _Compare, _Alloc>& __x,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_set.h:840:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   'const std::__cxx11::basic_string<char>' is not derived from 'const std::set<_Key, _Compare, _Alloc>'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\set:60:0,
+                 from tests/doctest.hpp:3944,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_tree.h:1282:5: note: candidate: template<class _Key, class _Val, class _KeyOfValue, class _Compare, class _Alloc> bool std::operator==(const std::_Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>&, const std::_Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>&)
+     operator==(const _Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>& __x,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_tree.h:1282:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   'const std::__cxx11::basic_string<char>' is not derived from 'const std::_Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\set:60:0,
+                 from tests/doctest.hpp:3944,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_tree.h:328:5: note: candidate: template<class _Val> bool std::operator==(const std::_Rb_tree_iterator<_Tp>&, const std::_Rb_tree_const_iterator<_Val>&)
+     operator==(const _Rb_tree_iterator<_Val>& __x,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_tree.h:328:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   'const std::__cxx11::basic_string<char>' is not derived from 'const std::_Rb_tree_iterator<_Tp>'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\vector:64:0,
+                 from tests/doctest.hpp:3932,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_vector.h:1509:5: note: candidate: template<class _Tp, class _Alloc> bool std::operator==(const std::vector<_Tp, _Alloc>&, const std::vector<_Tp, _Alloc>&)
+     operator==(const vector<_Tp, _Alloc>& __x, const vector<_Tp, _Alloc>& __y)
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_vector.h:1509:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   'const std::__cxx11::basic_string<char>' is not derived from 'const std::vector<_Tp, _Alloc>'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\locale_conv.h:41:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\locale:43,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\iomanip:43,
+                 from tests/doctest.hpp:3931,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\unique_ptr.h:661:5: note: candidate: template<class _Tp, class _Dp> bool std::operator==(std::nullptr_t, const std::unique_ptr<_Tp, _Dp>&)
+     operator==(nullptr_t, const unique_ptr<_Tp, _Dp>& __x) noexcept
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\unique_ptr.h:661:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   mismatched types 'const std::unique_ptr<_Tp, _Dp>' and 'int'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\locale_conv.h:41:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\locale:43,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\iomanip:43,
+                 from tests/doctest.hpp:3931,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\unique_ptr.h:656:5: note: candidate: template<class _Tp, class _Dp> bool std::operator==(const std::unique_ptr<_Tp, _Dp>&, std::nullptr_t)
+     operator==(const unique_ptr<_Tp, _Dp>& __x, nullptr_t) noexcept
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\unique_ptr.h:656:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   'const std::__cxx11::basic_string<char>' is not derived from 'const std::unique_ptr<_Tp, _Dp>'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\locale_conv.h:41:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\locale:43,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\iomanip:43,
+                 from tests/doctest.hpp:3931,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\unique_ptr.h:650:5: note: candidate: template<class _Tp, class _Dp, class _Up, class _Ep> bool std::operator==(const std::unique_ptr<_Tp, _Dp>&, const std::unique_ptr<_Up, _Ep>&)
+     operator==(const unique_ptr<_Tp, _Dp>& __x,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\unique_ptr.h:650:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   'const std::__cxx11::basic_string<char>' is not derived from 'const std::unique_ptr<_Tp, _Dp>'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\unique_ptr.h:37:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\locale_conv.h:41,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\locale:43,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\iomanip:43,
+                 from tests/doctest.hpp:3931,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\tuple:1337:5: note: candidate: template<class ... _TElements, class ... _UElements> constexpr bool std::operator==(const std::tuple<_Elements ...>&, const std::tuple<_Elements ...>&)
+     operator==(const tuple<_TElements...>& __t,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\tuple:1337:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   'const std::__cxx11::basic_string<char>' is not derived from 'const std::tuple<_Elements ...>'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\tuple:39:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\unique_ptr.h:37,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\locale_conv.h:41,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\locale:43,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\iomanip:43,
+                 from tests/doctest.hpp:3931,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\array:241:5: note: candidate: template<class _Tp, unsigned int _Nm> bool std::operator==(const std::array<_Tp, _Nm>&, const std::array<_Tp, _Nm>&)
+     operator==(const array<_Tp, _Nm>& __one, const array<_Tp, _Nm>& __two)
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\array:241:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   'const std::__cxx11::basic_string<char>' is not derived from 'const std::array<_Tp, _Nm>'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\locale_facets.h:48:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\basic_ios.h:37,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:44,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\streambuf_iterator.h:204:5: note: candidate: template<class _CharT, class _Traits> bool std::operator==(const std::istreambuf_iterator<_CharT, _Traits>&, const std::istreambuf_iterator<_CharT, _Traits>&)
+     operator==(const istreambuf_iterator<_CharT, _Traits>& __a,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\streambuf_iterator.h:204:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   'const std::__cxx11::basic_string<char>' is not derived from 'const std::istreambuf_iterator<_CharT, _Traits>'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\ios_base.h:46:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:42,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\system_error:303:3: note: candidate: bool std::operator==(const std::error_condition&, const std::error_condition&)
+   operator==(const error_condition& __lhs,
+   ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\system_error:303:3: note:   no known conversion for argument 1 from 'const std::__cxx11::basic_string<char>' to 'const std::error_condition&'
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\system_error:296:3: note: candidate: bool std::operator==(const std::error_condition&, const std::error_code&)
+   operator==(const error_condition& __lhs, const error_code& __rhs) noexcept
+   ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\system_error:296:3: note:   no known conversion for argument 1 from 'const std::__cxx11::basic_string<char>' to 'const std::error_condition&'
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\system_error:289:3: note: candidate: bool std::operator==(const std::error_code&, const std::error_condition&)
+   operator==(const error_code& __lhs, const error_condition& __rhs) noexcept
+   ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\system_error:289:3: note:   no known conversion for argument 1 from 'const std::__cxx11::basic_string<char>' to 'const std::error_code&'
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\system_error:284:3: note: candidate: bool std::operator==(const std::error_code&, const std::error_code&)
+   operator==(const error_code& __lhs, const error_code& __rhs) noexcept
+   ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\system_error:284:3: note:   no known conversion for argument 1 from 'const std::__cxx11::basic_string<char>' to 'const std::error_code&'
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\string:52:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\locale_classes.h:40,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\ios_base.h:41,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:42,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\basic_string.h:5084:5: note: candidate: template<class _CharT, class _Traits, class _Alloc> bool std::operator==(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, const _CharT*)
+     operator==(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\basic_string.h:5084:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   mismatched types 'const _CharT*' and 'int'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\string:52:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\locale_classes.h:40,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\ios_base.h:41,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:42,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\basic_string.h:5072:5: note: candidate: template<class _CharT, class _Traits, class _Alloc> bool std::operator==(const _CharT*, const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&)
+     operator==(const _CharT* __lhs,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\basic_string.h:5072:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   mismatched types 'const _CharT*' and 'std::__cxx11::basic_string<char>'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\string:52:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\locale_classes.h:40,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\ios_base.h:41,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:42,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\basic_string.h:5058:5: note: candidate: template<class _CharT> typename __gnu_cxx::__enable_if<std::__is_char<_Tp>::__value, bool>::__type std::operator==(const std::__cxx11::basic_string<_CharT>&, const std::__cxx11::basic_string<_CharT>&)
+     operator==(const basic_string<_CharT>& __lhs,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\basic_string.h:5058:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   mismatched types 'const std::__cxx11::basic_string<_CharT>' and 'int'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\string:52:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\locale_classes.h:40,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\ios_base.h:41,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:42,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\basic_string.h:5050:5: note: candidate: template<class _CharT, class _Traits, class _Alloc> bool std::operator==(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&)
+     operator==(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\basic_string.h:5050:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   mismatched types 'const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>' and 'int'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\string:41:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\locale_classes.h:40,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\ios_base.h:41,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:42,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\allocator.h:152:5: note: candidate: template<class _Tp> bool std::operator==(const std::allocator<_CharT>&, const std::allocator<_CharT>&)
+     operator==(const allocator<_Tp>&, const allocator<_Tp>&)
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\allocator.h:152:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   'const std::__cxx11::basic_string<char>' is not derived from 'const std::allocator<_CharT>'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\string:41:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\locale_classes.h:40,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\ios_base.h:41,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:42,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\allocator.h:146:5: note: candidate: template<class _T1, class _T2> bool std::operator==(const std::allocator<_CharT>&, const std::allocator<_T2>&)
+     operator==(const allocator<_T1>&, const allocator<_T2>&)
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\allocator.h:146:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   'const std::__cxx11::basic_string<char>' is not derived from 'const std::allocator<_CharT>'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_algobase.h:67:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\char_traits.h:39,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:40,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_iterator.h:1119:5: note: candidate: template<class _Iterator> bool std::operator==(const std::move_iterator<_IteratorL>&, const std::move_iterator<_IteratorL>&)
+     operator==(const move_iterator<_Iterator>& __x,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_iterator.h:1119:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   'const std::__cxx11::basic_string<char>' is not derived from 'const std::move_iterator<_IteratorL>'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_algobase.h:67:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\char_traits.h:39,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:40,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_iterator.h:1113:5: note: candidate: template<class _IteratorL, class _IteratorR> bool std::operator==(const std::move_iterator<_IteratorL>&, const std::move_iterator<_IteratorR>&)
+     operator==(const move_iterator<_IteratorL>& __x,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_iterator.h:1113:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   'const std::__cxx11::basic_string<char>' is not derived from 'const std::move_iterator<_IteratorL>'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_algobase.h:67:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\char_traits.h:39,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:40,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_iterator.h:349:5: note: candidate: template<class _IteratorL, class _IteratorR> bool std::operator==(const std::reverse_iterator<_Iterator>&, const std::reverse_iterator<_IteratorR>&)
+     operator==(const reverse_iterator<_IteratorL>& __x,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_iterator.h:349:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   'const std::__cxx11::basic_string<char>' is not derived from 'const std::reverse_iterator<_Iterator>'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_algobase.h:67:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\char_traits.h:39,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:40,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_iterator.h:292:5: note: candidate: template<class _Iterator> bool std::operator==(const std::reverse_iterator<_Iterator>&, const std::reverse_iterator<_Iterator>&)
+     operator==(const reverse_iterator<_Iterator>& __x,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_iterator.h:292:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   'const std::__cxx11::basic_string<char>' is not derived from 'const std::reverse_iterator<_Iterator>'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\iosfwd:40:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\postypes.h:216:5: note: candidate: template<class _StateT> bool std::operator==(const std::fpos<_StateT>&, const std::fpos<_StateT>&)
+     operator==(const fpos<_StateT>& __lhs, const fpos<_StateT>& __rhs)
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\postypes.h:216:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   'const std::__cxx11::basic_string<char>' is not derived from 'const std::fpos<_StateT>'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\utility:70:0,
+                 from tests/doctest.hpp:3924,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_pair.h:431:5: note: candidate: template<class _T1, class _T2> constexpr bool std::operator==(const std::pair<_T1, _T2>&, const std::pair<_T1, _T2>&)
+     operator==(const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_pair.h:431:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   'const std::__cxx11::basic_string<char>' is not derived from 'const std::pair<_T1, _T2>'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\mingw32\bits\c++allocator.h:33:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\allocator.h:46,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\string:41,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\locale_classes.h:40,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\ios_base.h:41,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:42,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ext\new_allocator.h:139:5: note: candidate: template<class _Tp> bool __gnu_cxx::operator==(const __gnu_cxx::new_allocator<_Tp>&, const __gnu_cxx::new_allocator<_Tp>&)
+     operator==(const new_allocator<_Tp>&, const new_allocator<_Tp>&)
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ext\new_allocator.h:139:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   'const std::__cxx11::basic_string<char>' is not derived from 'const __gnu_cxx::new_allocator<_Tp>'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_algobase.h:67:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\char_traits.h:39,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:40,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_iterator.h:863:5: note: candidate: template<class _Iterator, class _Container> bool __gnu_cxx::operator==(const __gnu_cxx::__normal_iterator<_Iterator, _Container>&, const __gnu_cxx::__normal_iterator<_Iterator, _Container>&)
+     operator==(const __normal_iterator<_Iterator, _Container>& __lhs,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_iterator.h:863:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   'const std::__cxx11::basic_string<char>' is not derived from 'const __gnu_cxx::__normal_iterator<_Iterator, _Container>'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_algobase.h:67:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\char_traits.h:39,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:40,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_iterator.h:856:5: note: candidate: template<class _IteratorL, class _IteratorR, class _Container> bool __gnu_cxx::operator==(const __gnu_cxx::__normal_iterator<_IteratorL, _Container>&, const __gnu_cxx::__normal_iterator<_IteratorR, _Container>&)
+     operator==(const __normal_iterator<_IteratorL, _Container>& __lhs,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_iterator.h:856:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/doctest.hpp:2000:45: note:   'const std::__cxx11::basic_string<char>' is not derived from 'const __gnu_cxx::__normal_iterator<_IteratorL, _Container>'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+                                             ^
+tests/doctest.hpp:1928:74: note: in definition of macro 'SFINAE_OP'
+ #define SFINAE_OP(ret, op) decltype((void)(doctest::detail::declval<L>() op doctest::detail::declval<R>()), ret{})
+                                                                          ^~
+tests/doctest.hpp:2000:5: note: in expansion of macro 'DOCTEST_DO_BINARY_EXPRESSION_COMPARISON'
+     DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ)
+     ^
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\unordered_set:48:0,
+                 from tests/doctest.hpp:3946,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\unordered_set.h:1423:5: note: candidate: template<class _Value, class _Hash, class _Pred, class _Alloc> bool std::operator==(const std::unordered_multiset<_Value, _Hash, _Pred, _Alloc>&, const std::unordered_multiset<_Value, _Hash, _Pred, _Alloc>&)
+     operator==(const unordered_multiset<_Value, _Hash, _Pred, _Alloc>& __x,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\unordered_set.h:1423:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const std::unordered_multiset<_Value, _Hash, _Pred, _Alloc>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\unordered_set:48:0,
+                 from tests/doctest.hpp:3946,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\unordered_set.h:1411:5: note: candidate: template<class _Value, class _Hash, class _Pred, class _Alloc> bool std::operator==(const std::unordered_set<_Value, _Hash, _Pred, _Alloc>&, const std::unordered_set<_Value, _Hash, _Pred, _Alloc>&)
+     operator==(const unordered_set<_Value, _Hash, _Pred, _Alloc>& __x,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\unordered_set.h:1411:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const std::unordered_set<_Value, _Hash, _Pred, _Alloc>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\map:62:0,
+                 from tests/doctest.hpp:3945,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_multimap.h:972:5: note: candidate: template<class _Key, class _Tp, class _Compare, class _Alloc> bool std::operator==(const std::multimap<_Key, _Tp, _Compare, _Alloc>&, const std::multimap<_Key, _Tp, _Compare, _Alloc>&)
+     operator==(const multimap<_Key, _Tp, _Compare, _Alloc>& __x,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_multimap.h:972:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const std::multimap<_Key, _Tp, _Compare, _Alloc>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\map:61:0,
+                 from tests/doctest.hpp:3945,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_map.h:1307:5: note: candidate: template<class _Key, class _Tp, class _Compare, class _Alloc> bool std::operator==(const std::map<_Key, _Tp, _Compare, _Alloc>&, const std::map<_Key, _Tp, _Compare, _Alloc>&)
+     operator==(const map<_Key, _Tp, _Compare, _Alloc>& __x,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_map.h:1307:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const std::map<_Key, _Tp, _Compare, _Alloc>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\set:62:0,
+                 from tests/doctest.hpp:3944,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_multiset.h:823:5: note: candidate: template<class _Key, class _Compare, class _Alloc> bool std::operator==(const std::multiset<_Key, _Compare, _Alloc>&, const std::multiset<_Key, _Compare, _Alloc>&)
+     operator==(const multiset<_Key, _Compare, _Alloc>& __x,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_multiset.h:823:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const std::multiset<_Key, _Compare, _Alloc>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\set:61:0,
+                 from tests/doctest.hpp:3944,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_set.h:840:5: note: candidate: template<class _Key, class _Compare, class _Alloc> bool std::operator==(const std::set<_Key, _Compare, _Alloc>&, const std::set<_Key, _Compare, _Alloc>&)
+     operator==(const set<_Key, _Compare, _Alloc>& __x,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_set.h:840:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const std::set<_Key, _Compare, _Alloc>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\set:60:0,
+                 from tests/doctest.hpp:3944,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_tree.h:1282:5: note: candidate: template<class _Key, class _Val, class _KeyOfValue, class _Compare, class _Alloc> bool std::operator==(const std::_Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>&, const std::_Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>&)
+     operator==(const _Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>& __x,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_tree.h:1282:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const std::_Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\set:60:0,
+                 from tests/doctest.hpp:3944,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_tree.h:328:5: note: candidate: template<class _Val> bool std::operator==(const std::_Rb_tree_iterator<_Tp>&, const std::_Rb_tree_const_iterator<_Val>&)
+     operator==(const _Rb_tree_iterator<_Val>& __x,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_tree.h:328:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const std::_Rb_tree_iterator<_Tp>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\vector:64:0,
+                 from tests/doctest.hpp:3932,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_vector.h:1509:5: note: candidate: template<class _Tp, class _Alloc> bool std::operator==(const std::vector<_Tp, _Alloc>&, const std::vector<_Tp, _Alloc>&)
+     operator==(const vector<_Tp, _Alloc>& __x, const vector<_Tp, _Alloc>& __y)
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_vector.h:1509:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const std::vector<_Tp, _Alloc>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\locale_conv.h:41:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\locale:43,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\iomanip:43,
+                 from tests/doctest.hpp:3931,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\unique_ptr.h:661:5: note: candidate: template<class _Tp, class _Dp> bool std::operator==(std::nullptr_t, const std::unique_ptr<_Tp, _Dp>&)
+     operator==(nullptr_t, const unique_ptr<_Tp, _Dp>& __x) noexcept
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\unique_ptr.h:661:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   mismatched types 'const std::unique_ptr<_Tp, _Dp>' and 'int'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\locale_conv.h:41:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\locale:43,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\iomanip:43,
+                 from tests/doctest.hpp:3931,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\unique_ptr.h:656:5: note: candidate: template<class _Tp, class _Dp> bool std::operator==(const std::unique_ptr<_Tp, _Dp>&, std::nullptr_t)
+     operator==(const unique_ptr<_Tp, _Dp>& __x, nullptr_t) noexcept
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\unique_ptr.h:656:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const std::unique_ptr<_Tp, _Dp>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\locale_conv.h:41:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\locale:43,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\iomanip:43,
+                 from tests/doctest.hpp:3931,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\unique_ptr.h:650:5: note: candidate: template<class _Tp, class _Dp, class _Up, class _Ep> bool std::operator==(const std::unique_ptr<_Tp, _Dp>&, const std::unique_ptr<_Up, _Ep>&)
+     operator==(const unique_ptr<_Tp, _Dp>& __x,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\unique_ptr.h:650:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const std::unique_ptr<_Tp, _Dp>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\unique_ptr.h:37:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\locale_conv.h:41,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\locale:43,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\iomanip:43,
+                 from tests/doctest.hpp:3931,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\tuple:1337:5: note: candidate: template<class ... _TElements, class ... _UElements> constexpr bool std::operator==(const std::tuple<_Elements ...>&, const std::tuple<_Elements ...>&)
+     operator==(const tuple<_TElements...>& __t,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\tuple:1337:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const std::tuple<_Elements ...>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\tuple:39:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\unique_ptr.h:37,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\locale_conv.h:41,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\locale:43,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\iomanip:43,
+                 from tests/doctest.hpp:3931,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\array:241:5: note: candidate: template<class _Tp, unsigned int _Nm> bool std::operator==(const std::array<_Tp, _Nm>&, const std::array<_Tp, _Nm>&)
+     operator==(const array<_Tp, _Nm>& __one, const array<_Tp, _Nm>& __two)
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\array:241:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const std::array<_Tp, _Nm>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\locale_facets.h:48:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\basic_ios.h:37,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:44,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\streambuf_iterator.h:204:5: note: candidate: template<class _CharT, class _Traits> bool std::operator==(const std::istreambuf_iterator<_CharT, _Traits>&, const std::istreambuf_iterator<_CharT, _Traits>&)
+     operator==(const istreambuf_iterator<_CharT, _Traits>& __a,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\streambuf_iterator.h:204:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const std::istreambuf_iterator<_CharT, _Traits>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\ios_base.h:46:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:42,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\system_error:303:3: note: candidate: bool std::operator==(const std::error_condition&, const std::error_condition&)
+   operator==(const error_condition& __lhs,
+   ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\system_error:303:3: note:   no known conversion for argument 1 from 'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' to 'const std::error_condition&'
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\system_error:296:3: note: candidate: bool std::operator==(const std::error_condition&, const std::error_code&)
+   operator==(const error_condition& __lhs, const error_code& __rhs) noexcept
+   ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\system_error:296:3: note:   no known conversion for argument 1 from 'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' to 'const std::error_condition&'
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\system_error:289:3: note: candidate: bool std::operator==(const std::error_code&, const std::error_condition&)
+   operator==(const error_code& __lhs, const error_condition& __rhs) noexcept
+   ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\system_error:289:3: note:   no known conversion for argument 1 from 'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' to 'const std::error_code&'
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\system_error:284:3: note: candidate: bool std::operator==(const std::error_code&, const std::error_code&)
+   operator==(const error_code& __lhs, const error_code& __rhs) noexcept
+   ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\system_error:284:3: note:   no known conversion for argument 1 from 'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' to 'const std::error_code&'
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\string:52:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\locale_classes.h:40,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\ios_base.h:41,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:42,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\basic_string.h:5084:5: note: candidate: template<class _CharT, class _Traits, class _Alloc> bool std::operator==(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, const _CharT*)
+     operator==(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\basic_string.h:5084:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\string:52:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\locale_classes.h:40,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\ios_base.h:41,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:42,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\basic_string.h:5072:5: note: candidate: template<class _CharT, class _Traits, class _Alloc> bool std::operator==(const _CharT*, const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&)
+     operator==(const _CharT* __lhs,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\basic_string.h:5072:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   mismatched types 'const _CharT*' and 'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\string:52:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\locale_classes.h:40,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\ios_base.h:41,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:42,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\basic_string.h:5058:5: note: candidate: template<class _CharT> typename __gnu_cxx::__enable_if<std::__is_char<_Tp>::__value, bool>::__type std::operator==(const std::__cxx11::basic_string<_CharT>&, const std::__cxx11::basic_string<_CharT>&)
+     operator==(const basic_string<_CharT>& __lhs,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\basic_string.h:5058:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const std::__cxx11::basic_string<_CharT>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\string:52:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\locale_classes.h:40,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\ios_base.h:41,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:42,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\basic_string.h:5050:5: note: candidate: template<class _CharT, class _Traits, class _Alloc> bool std::operator==(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&)
+     operator==(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\basic_string.h:5050:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\string:41:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\locale_classes.h:40,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\ios_base.h:41,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:42,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\allocator.h:152:5: note: candidate: template<class _Tp> bool std::operator==(const std::allocator<_CharT>&, const std::allocator<_CharT>&)
+     operator==(const allocator<_Tp>&, const allocator<_Tp>&)
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\allocator.h:152:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const std::allocator<_CharT>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\string:41:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\locale_classes.h:40,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\ios_base.h:41,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:42,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\allocator.h:146:5: note: candidate: template<class _T1, class _T2> bool std::operator==(const std::allocator<_CharT>&, const std::allocator<_T2>&)
+     operator==(const allocator<_T1>&, const allocator<_T2>&)
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\allocator.h:146:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const std::allocator<_CharT>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_algobase.h:67:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\char_traits.h:39,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:40,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_iterator.h:1119:5: note: candidate: template<class _Iterator> bool std::operator==(const std::move_iterator<_IteratorL>&, const std::move_iterator<_IteratorL>&)
+     operator==(const move_iterator<_Iterator>& __x,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_iterator.h:1119:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const std::move_iterator<_IteratorL>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_algobase.h:67:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\char_traits.h:39,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:40,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_iterator.h:1113:5: note: candidate: template<class _IteratorL, class _IteratorR> bool std::operator==(const std::move_iterator<_IteratorL>&, const std::move_iterator<_IteratorR>&)
+     operator==(const move_iterator<_IteratorL>& __x,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_iterator.h:1113:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const std::move_iterator<_IteratorL>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_algobase.h:67:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\char_traits.h:39,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:40,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_iterator.h:349:5: note: candidate: template<class _IteratorL, class _IteratorR> bool std::operator==(const std::reverse_iterator<_Iterator>&, const std::reverse_iterator<_IteratorR>&)
+     operator==(const reverse_iterator<_IteratorL>& __x,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_iterator.h:349:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const std::reverse_iterator<_Iterator>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_algobase.h:67:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\char_traits.h:39,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:40,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_iterator.h:292:5: note: candidate: template<class _Iterator> bool std::operator==(const std::reverse_iterator<_Iterator>&, const std::reverse_iterator<_Iterator>&)
+     operator==(const reverse_iterator<_Iterator>& __x,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_iterator.h:292:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const std::reverse_iterator<_Iterator>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\iosfwd:40:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\postypes.h:216:5: note: candidate: template<class _StateT> bool std::operator==(const std::fpos<_StateT>&, const std::fpos<_StateT>&)
+     operator==(const fpos<_StateT>& __lhs, const fpos<_StateT>& __rhs)
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\postypes.h:216:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const std::fpos<_StateT>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\utility:70:0,
+                 from tests/doctest.hpp:3924,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_pair.h:431:5: note: candidate: template<class _T1, class _T2> constexpr bool std::operator==(const std::pair<_T1, _T2>&, const std::pair<_T1, _T2>&)
+     operator==(const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_pair.h:431:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const std::pair<_T1, _T2>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\mingw32\bits\c++allocator.h:33:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\allocator.h:46,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\string:41,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\locale_classes.h:40,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\ios_base.h:41,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:42,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ext\new_allocator.h:139:5: note: candidate: template<class _Tp> bool __gnu_cxx::operator==(const __gnu_cxx::new_allocator<_Tp>&, const __gnu_cxx::new_allocator<_Tp>&)
+     operator==(const new_allocator<_Tp>&, const new_allocator<_Tp>&)
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ext\new_allocator.h:139:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const __gnu_cxx::new_allocator<_Tp>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_algobase.h:67:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\char_traits.h:39,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:40,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_iterator.h:863:5: note: candidate: template<class _Iterator, class _Container> bool __gnu_cxx::operator==(const __gnu_cxx::__normal_iterator<_Iterator, _Container>&, const __gnu_cxx::__normal_iterator<_Iterator, _Container>&)
+     operator==(const __normal_iterator<_Iterator, _Container>& __lhs,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_iterator.h:863:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const __gnu_cxx::__normal_iterator<_Iterator, _Container>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+In file included from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_algobase.h:67:0,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\char_traits.h:39,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\ios:40,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\istream:38,
+                 from c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\fstream:38,
+                 from tests/doctest.hpp:3925,
+                 from tests/TesteItemVendido.cpp:2:
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_iterator.h:856:5: note: candidate: template<class _IteratorL, class _IteratorR, class _Container> bool __gnu_cxx::operator==(const __gnu_cxx::__normal_iterator<_IteratorL, _Container>&, const __gnu_cxx::__normal_iterator<_IteratorR, _Container>&)
+     operator==(const __normal_iterator<_IteratorL, _Container>& __lhs,
+     ^~~~~~~~
+c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\bits\stl_iterator.h:856:5: note:   template argument deduction/substitution failed:
+In file included from tests/TesteItemVendido.cpp:2:0:
+tests/TesteItemVendido.cpp:9:35: note:   'doctest::detail::Expression_lhs<const std::__cxx11::basic_string<char>&&>' is not derived from 'const __gnu_cxx::__normal_iterator<_IteratorL, _Container>'
+     CHECK(item.get_idProduto() == 1);
+                                   ^
+tests/doctest.hpp:2921:9: note: in definition of macro 'DOCTEST_WRAP_IN_TRY'
+         x;                                                                                                             \
+         ^
+tests/doctest.hpp:3184:9: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_2'
+         DOCTEST_ASSERT_IMPLEMENT_2(assert_type, __VA_ARGS__);                                                          \
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3230:28: note: in expansion of macro 'DOCTEST_ASSERT_IMPLEMENT_1'
+ #define DOCTEST_CHECK(...) DOCTEST_ASSERT_IMPLEMENT_1(DT_CHECK, __VA_ARGS__)
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/doctest.hpp:3781:20: note: in expansion of macro 'DOCTEST_CHECK'
+ #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+                    ^~~~~~~~~~~~~
+tests/TesteItemVendido.cpp:9:5: note: in expansion of macro 'CHECK'
+     CHECK(item.get_idProduto() == 1);
+     ^~~~~
+tests/TesteItemVendido.cpp: In function 'void DOCTEST_ANON_FUNC_6()':
+tests/TesteItemVendido.cpp:17:45: error: no matching function for call to 'ItemVendido::ItemVendido(int, const char [8], double, int)'
+     ItemVendido item(10, "Teclado", 100.0, 3);
+                                             ^
+In file included from tests/TesteItemVendido.cpp:3:0:
+tests/../include/itemVendido.hpp:14:5: note: candidate: ItemVendido::ItemVendido(std::__cxx11::string, std::__cxx11::string, double, int)
+     ItemVendido(std::string id, std::string nome, double preco, int qtd);
+     ^~~~~~~~~~~
+tests/../include/itemVendido.hpp:14:5: note:   no known conversion for argument 1 from 'int' to 'std::__cxx11::string {aka std::__cxx11::basic_string<char>}'
+tests/../include/itemVendido.hpp:6:7: note: candidate: ItemVendido::ItemVendido(const ItemVendido&)
+ class ItemVendido {
+       ^~~~~~~~~~~
+tests/../include/itemVendido.hpp:6:7: note:   candidate expects 1 argument, 4 provided
+tests/../include/itemVendido.hpp:6:7: note: candidate: ItemVendido::ItemVendido(ItemVendido&&)
+tests/../include/itemVendido.hpp:6:7: note:   candidate expects 1 argument, 4 provided
+Makefile:61: recipe for target 'build/TesteitemVendido' failed
+mingw32-make: *** [build/TesteitemVendido] Error 1

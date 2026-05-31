@@ -7355,7 +7355,7 @@ std::string JUnitReporter::JUnitTestCaseData::getCurrentTimestamp() {
 
     std::tm timeInfo;
 #if defined(DOCTEST_PLATFORM_WINDOWS)
-    gmtime_s(&timeInfo, &rawtime);
+    timeInfo = *gmtime(&rawtime);
 #elif defined(__STDC_LIB_EXT1__)
     gmtime_s(&rawtime, &timeInfo);
 #else  // DOCTEST_PLATFORM_WINDOWS
