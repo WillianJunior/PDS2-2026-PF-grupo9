@@ -1,7 +1,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
-#include "../include/Carrinho.h"
-#include "../include/produto.h"
+#include "../include/Carrinho.hpp"
+#include "../include/produto.hpp"
 
 TEST_CASE("Teste Carrinho - Adicionar Produtos") {
 

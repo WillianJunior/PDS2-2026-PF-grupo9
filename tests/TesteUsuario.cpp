@@ -1,6 +1,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "doctest.h"
-#include "../include/Usuario.h"
+#include "doctest.hpp"
+#include "../include/usuario.hpp"
 
 TEST_CASE("Teste Usuario - Construtor e Getters") {
 

@@ -8,4 +8,4 @@
 // https://github.com/doctest/doctest/blob/master/doc/markdown/readme.md
 
 #define DOCTEST_CONFIG_IMPLEMENT
-#include "doctest/doctest.h"
+#include "doctest/doctest.hpp"

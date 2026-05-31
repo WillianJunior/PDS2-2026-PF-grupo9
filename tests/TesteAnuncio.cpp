@@ -1,9 +1,9 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
 
-#include "../include/Anuncio.h"
-#include "../include/produto.h"
-#include "../include/Usuario.h"
+#include "../include/Anuncio.hpp"
+#include "../include/produto.hpp"
+#include "../include/usuario.hpp"
 
 TEST_CASE("Teste Anuncio - Construtor") {
 

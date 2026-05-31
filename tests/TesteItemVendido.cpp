@@ -1,6 +1,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "doctest.h"
-#include "../include/ItemVendido.h"
+#include "doctest.hpp"
+#include "../include/itemVendido.hpp"
 
 TEST_CASE("Teste ItemVendido - Getters") {
 
@@ -12,7 +12,7 @@ TEST_CASE("Teste ItemVendido - Getters") {
     CHECK(item.get_quantidade() == 2);
 }
 
-TEST_CASE("Teste ItemVendido - Subtotal") {
+TEST_CASE("Teste itemVendido - Subtotal") {
 
     ItemVendido item(10, "Teclado", 100.0, 3);
 

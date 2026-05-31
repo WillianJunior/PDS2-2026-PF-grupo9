@@ -1,6 +1,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "doctest.h"
-#include "../include/GerenciadorUsuarios.h"
+#include "doctest.hpp"
+#include "../include/GerenciadorUsuarios.hpp"
 
 TEST_CASE("Teste GerenciadorUsuarios - Criacao") {
 

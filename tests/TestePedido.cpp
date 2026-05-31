@@ -1,7 +1,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "doctest.h"
-#include "../include/Pedido.h"
-#include "../include/ItemVendido.h"
+#include "doctest.hpp"
+#include "../include/Pedido.hpp"
+#include "../include/itemVendido.hpp"
 
 TEST_CASE("Teste Pedido - Estado Inicial") {
 
