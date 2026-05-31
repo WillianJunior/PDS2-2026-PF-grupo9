@@ -2,6 +2,9 @@
 #include <iostream>
 #include <cstdlib>
 #include <vector>
+#include <algorithm>
+#include <cctype>
+#include <fstream> 
 
 using namespace std;
 
@@ -89,6 +92,9 @@ void TerminalUI::menuLogin() {
 void TerminalUI::menuEscolhaPerfil(Usuario* usuario) {
     int opcao;
     
+    // CARREGA O CARRINHO SALVO DO USUÁRIO ASSIM QUE ELE FAZ LOGIN!
+    carrinhoCompras.carregarCarrinho(usuario->getLogin());
+    
     do {
         limparTela();
         cout << "\nBem-vindo(a), " << usuario->getNome() << "!" << endl;
@@ -107,7 +113,10 @@ void TerminalUI::menuEscolhaPerfil(Usuario* usuario) {
                 menuAnunciante(usuario);
                 break;
             case 3:
-                cout << "\nFazendo logout..." << endl;
+                // SALVA O CARRINHO ANTES DE SAIR, PARA GARANTIR SEGURANÇA
+                carrinhoCompras.salvarCarrinho(usuario->getLogin());
+                carrinhoCompras.esvaziar();
+                cout << "\nFazendo logout e salvando dados..." << endl;
                 break;
             default:
                 cout << "\nOpcao invalida! Tente novamente." << endl;
@@ -244,7 +253,6 @@ void TerminalUI::menuAnunciante(Usuario* usuario) {
                     const Produto* prodAtual = meusProdutos[escolha - 1];
                     string idSelecionado = prodAtual->get_id();
                     
-                    // Copia os dados atuais para variáveis temporárias
                     string nomeTemp = prodAtual->get_nome();
                     double precoTemp = prodAtual->get_preco();
                     string catTemp = prodAtual->get_categoria();
@@ -306,7 +314,6 @@ void TerminalUI::menuAnunciante(Usuario* usuario) {
                             }
                         } 
                         else if (opcaoEdit == 4) {
-                            // Salva as alterações enviando o pacote completo atualizado
                             gerenciadorProdutos.editarProduto(idSelecionado, nomeTemp, precoTemp, catTemp, subTemp);
                             cout << "\nProduto atualizado com sucesso!" << endl;
                             cout << "\nPressione Enter para continuar...";
@@ -343,12 +350,207 @@ void TerminalUI::menuAnunciante(Usuario* usuario) {
 // MÓDULO DO COMPRADOR
 // ==========================================
 void TerminalUI::menuComprador(Usuario* usuario) {
-    limparTela();
-    cout << "\n=== Area de Compras ===" << endl;
-    cout << "Bem-vindo a loja, " << usuario->getNome() << "!" << endl;
-    cout << "(A funcionalidade de Carrinho de Compras estara disponivel em breve!)" << endl;
-    
-    cout << "\nPressione Enter para voltar...";
-    cin.ignore();
-    cin.get();
+    int opcao;
+    do {
+        limparTela();
+        cout << "\n=== Area de Compras ===" << endl;
+        cout << "Bem-vindo(a), " << usuario->getNome() << "!" << endl;
+        cout << "1 - Ver Vitrine Global / Pesquisar" << endl;
+        cout << "2 - Ver Meu Carrinho" << endl;
+        cout << "3 - Salvar Carrinho" << endl; // <-- OPÇÃO ATUALIZADA
+        cout << "4 - Voltar" << endl;
+        cout << "Escolha uma opcao: ";
+        cin >> opcao;
+
+        if (opcao == 1) {
+            limparTela();
+            int opcaoFiltro;
+            cout << "=== Menu de Busca de Produtos ===" << endl;
+            cout << "1 - Ver TODOS os produtos disponiveis" << endl;
+            cout << "2 - Pesquisar por Categoria e Subcategoria" << endl;
+            cout << "3 - Pesquisar por Nome" << endl;
+            cout << "Escolha uma opcao: ";
+            cin >> opcaoFiltro;
+
+            string categoriaFiltro = "";
+            string subcategoriaFiltro = "";
+            string nomeFiltro = ""; 
+
+            if (opcaoFiltro == 2) {
+                int opcaoCat, opcaoSub;
+                limparTela();
+                cout << "\n--- Selecione a Categoria desejada ---" << endl;
+                cout << "1 - Veiculo\n2 - Eletrodomestico\n3 - Roupa\nOpcao: ";
+                cin >> opcaoCat;
+
+                if (opcaoCat == 1) categoriaFiltro = "Veiculo";
+                else if (opcaoCat == 2) categoriaFiltro = "Eletrodomestico";
+                else if (opcaoCat == 3) categoriaFiltro = "Roupa";
+
+                int querSub;
+                cout << "\nDeseja refinar a busca selecionando uma Subcategoria?\n1 - Sim\n2 - Nao\nOpcao: ";
+                cin >> querSub;
+
+                if (querSub == 1) {
+                    cout << "\n--- Selecione a Subcategoria ---" << endl;
+                    if (categoriaFiltro == "Veiculo") {
+                        cout << "1 - Carro\n2 - Moto\n3 - Caminhao\nOpcao: ";
+                        cin >> opcaoSub;
+                        if (opcaoSub == 1) subcategoriaFiltro = "Carro";
+                        else if (opcaoSub == 2) subcategoriaFiltro = "Moto";
+                        else subcategoriaFiltro = "Caminhao";
+                    } 
+                    else if (categoriaFiltro == "Eletrodomestico") {
+                        cout << "1 - Cozinha\n2 - Quarto\n3 - Escritorio\n4 - Gamer\nOpcao: ";
+                        cin >> opcaoSub;
+                        if (opcaoSub == 1) subcategoriaFiltro = "Cozinha";
+                        else if (opcaoSub == 2) subcategoriaFiltro = "Quarto";
+                        else if (opcaoSub == 3) subcategoriaFiltro = "Escritorio";
+                        else subcategoriaFiltro = "Gamer";
+                    }
+                    else if (categoriaFiltro == "Roupa") {
+                        cout << "1 - Camisa\n2 - Calca\n3 - Tenis\nOpcao: ";
+                        cin >> opcaoSub;
+                        if (opcaoSub == 1) subcategoriaFiltro = "Camisa";
+                        else if (opcaoSub == 2) subcategoriaFiltro = "Calca";
+                        else subcategoriaFiltro = "Tenis";
+                    }
+                }
+            } 
+            else if (opcaoFiltro == 3) {
+                limparTela();
+                cout << "\n--- Pesquisa por Nome ---" << endl;
+                cout << "Digite o nome ou palavra-chave: ";
+                cin.ignore();
+                getline(cin, nomeFiltro);
+            }
+
+            limparTela();
+            cout << "\n--- Resultados da Busca ---" << endl;
+            if (!categoriaFiltro.empty()) {
+                cout << "Filtro ativo: " << categoriaFiltro;
+                if (!subcategoriaFiltro.empty()) cout << " > " << subcategoriaFiltro;
+                cout << "\n" << endl;
+            } else if (!nomeFiltro.empty()) {
+                cout << "Buscando por: \"" << nomeFiltro << "\"\n" << endl;
+            }
+
+            const auto& produtos = gerenciadorProdutos.get_produtos();
+            vector<const Produto*> produtosExibidos; 
+
+            for (const auto& p : produtos) {
+                if (p.get_login_anunciante() != usuario->getLogin()) {
+                    
+                    if (!categoriaFiltro.empty() && p.get_categoria() != categoriaFiltro) continue;
+                    if (!subcategoriaFiltro.empty() && p.get_subcategoria() != subcategoriaFiltro) continue;
+
+                    if (!nomeFiltro.empty()) {
+                        string nomeDoBanco = p.get_nome();
+                        string nomeDoBancoLow = nomeDoBanco;
+                        string nomeBuscaLow = nomeFiltro;
+
+                        transform(nomeDoBancoLow.begin(), nomeDoBancoLow.end(), nomeDoBancoLow.begin(), ::tolower);
+                        transform(nomeBuscaLow.begin(), nomeBuscaLow.end(), nomeBuscaLow.begin(), ::tolower);
+
+                        if (nomeDoBancoLow.find(nomeBuscaLow) == string::npos) {
+                            continue; 
+                        }
+                    }
+
+                    produtosExibidos.push_back(&p);
+                    cout << "(" << produtosExibidos.size() << ") ID: " << p.get_id() 
+                         << " | Nome: " << p.get_nome() 
+                         << "\n    Categoria: " << p.get_categoria() << " > " << p.get_subcategoria()
+                         << "\n    Preco: R$ " << p.get_preco() 
+                         << "\n    Vendedor: " << p.get_login_anunciante() << "\n" << endl;
+                }
+            }
+            
+            if (produtosExibidos.empty()) {
+                cout << "Nenhum produto correspondente foi encontrado." << endl;
+                cout << "\nPressione Enter para continuar...";
+                cin.ignore();
+                cin.get();
+            } else {
+                cout << "---------------------------------" << endl;
+                int querComprar;
+                cout << "Deseja adicionar algum produto ao carrinho?\n1 - Sim\n2 - Nao\nOpcao: ";
+                cin >> querComprar;
+
+                if (querComprar == 1) {
+                    int escolhaProduto;
+                    cout << "\nDigite o NUMERO do produto na lista: ";
+                    cin >> escolhaProduto;
+
+                    if (escolhaProduto > 0 && escolhaProduto <= static_cast<int>(produtosExibidos.size())) {
+                        
+                        const Produto* p = produtosExibidos[escolhaProduto - 1];
+                        int qtd;
+                        
+                        cout << "Produto selecionado: " << p->get_nome() << " | R$ " << p->get_preco() << endl;
+                        cout << "Digite a quantidade que deseja comprar: ";
+                        cin >> qtd;
+
+                        if (qtd > 0) {
+                            ItemVendido novoItem(p->get_id(), p->get_nome(), p->get_preco(), qtd);
+                            carrinhoCompras.adicionarItem(novoItem);
+                            
+                            // Salva automaticamente após adicionar ao carrinho
+                            carrinhoCompras.salvarCarrinho(usuario->getLogin());
+                            
+                            cout << "\nSucesso! " << qtd << "x " << p->get_nome() << " adicionado(s) ao carrinho e salvo." << endl;
+                        } else {
+                            cout << "\nQuantidade invalida." << endl;
+                        }
+                    } else {
+                        cout << "\nErro: Numero invalido." << endl;
+                    }
+                }
+                
+                cout << "\nPressione Enter para continuar...";
+                cin.ignore();
+                cin.get();
+            }
+
+        } else if (opcao == 2) {
+            limparTela();
+            cout << "\n--- Meu Carrinho ---" << endl;
+            
+            const auto& itens = carrinhoCompras.get_itens();
+            
+            if (itens.empty()) {
+                cout << "Seu carrinho esta completamente vazio no momento." << endl;
+            } else {
+                for (const auto& item : itens) {
+                    cout << "ID: " << item.get_idProduto() 
+                         << " | " << item.get_nomeProduto() 
+                         << " | Qtd: " << item.get_quantidade() 
+                         << " | Subtotal: R$ " << item.get_subtotal() << endl;
+                }
+                cout << "---------------------------------" << endl;
+                cout << "TOTAL DO PEDIDO: R$ " << carrinhoCompras.get_total() << endl;
+            }
+            
+            cout << "\nPressione Enter para voltar...";
+            cin.ignore();
+            cin.get();
+
+        } else if (opcao == 3) { // <-- OPÇÃO PARA SALVAR O CARRINHO
+            limparTela();
+            cout << "\n--- Salvar Carrinho ---" << endl;
+            
+            if (carrinhoCompras.get_itens().empty()) {
+                cout << "O carrinho esta vazio, mas foi atualizado no sistema." << endl;
+            } else {
+                carrinhoCompras.salvarCarrinho(usuario->getLogin());
+                cout << "O seu carrinho foi salvo com sucesso em nossos servidores!" << endl;
+                cout << "Os itens ficarao aguardando o futuro modulo de pagamento." << endl;
+            }
+
+            cout << "\nPressione Enter para continuar...";
+            cin.ignore();
+            cin.get();
+        }
+
+    } while (opcao != 4); 
 }

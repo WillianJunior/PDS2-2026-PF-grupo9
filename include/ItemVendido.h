@@ -5,15 +5,15 @@
 
 class ItemVendido {
 private:
-    int _idProduto;
+    std::string _idProduto; // <-- ID agora é string!
     std::string _nomeProduto;
     double _precoNaVenda;
     int _quantidade;
 
 public:
-    ItemVendido(int id, std::string nome, double preco, int qtd);
+    ItemVendido(std::string id, std::string nome, double preco, int qtd);
     
-    int get_idProduto() const;
+    std::string get_idProduto() const;
     std::string get_nomeProduto() const;
     double get_precoNaVenda() const;
     int get_quantidade() const;

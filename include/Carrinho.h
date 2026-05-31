@@ -2,26 +2,22 @@
 #define CARRINHO_H
 
 #include <vector>
-#include "produto.h"
-
-using namespace std;
-
-struct ItemCarrinho {
-    Produto* produto;
-    int quantidade;
-};
+#include <string>
+#include "ItemVendido.h"
 
 class Carrinho {
 private:
-    vector<ItemCarrinho> _itens;
+    std::vector<ItemVendido> _itens;
 
 public:
-    void adicionarProduto(Produto* produto, int quantidade){};
-    void removerProduto(int idProduto){};
-    void limparCarrinho(){};
+    void adicionarItem(const ItemVendido& item);
+    const std::vector<ItemVendido>& get_itens() const;
+    double get_total() const;
+    void esvaziar();
     
-    double calcularTotal() const { return 0.0; };
-    const vector<ItemCarrinho>& get_itens() const { return _itens; };
+    // Novas funções para persistência no banco de dados
+    void salvarCarrinho(const std::string& loginUsuario) const;
+    void carregarCarrinho(const std::string& loginUsuario);
 };
 
 #endif
