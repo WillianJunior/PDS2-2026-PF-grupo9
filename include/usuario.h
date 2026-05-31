@@ -1,5 +1,5 @@
-#ifndef USUARIO_H
-#define USUARIO_H
+#ifndef USUARIO_HPP
+#define USUARIO_HPP
 
 #include <string>
 
@@ -7,7 +7,7 @@ using namespace std;
 
 class Usuario {
 private:
-    int _id; // <-- NOVO: O identificador único do usuário
+    int _id;
     string nome;
     string login;
     string senha;
@@ -16,7 +16,7 @@ public:
 
     virtual ~Usuario() = default;
 
-    int getId() const; // <-- NOVO
+    int getId() const;
     bool validarLogin(const string& loginIngressado, const string& senhaIngressado) const;
     string getNome() const;
     string getLogin() const;

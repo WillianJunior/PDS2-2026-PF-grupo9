@@ -1,14 +1,14 @@
-#ifndef ANUNCIO_H
-#define ANUNCIO_H
+#ifndef ANUNCIO_HPP
+#define ANUNCIO_HPP
 
 #include <string>
-#include "produto.h"
-#include "usuario.h"
+#include "produto.hpp"
+#include "usuario.hpp"
 
 class Anuncio {
 private:
-    int _idAnuncio;
-    Produto* _produto;
+int _idAnuncio;
+Produto* _produto;
     Usuario* _vendedor;
     int _quantidade;
     bool _estaAtivo;

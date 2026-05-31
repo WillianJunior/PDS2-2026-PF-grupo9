@@ -1,4 +1,4 @@
-#include "../include/GerenciadorProdutos.h"
+#include "../include/GerenciadorProdutos.hpp"
 #include <fstream>
 #include <sstream>
 #include <iomanip> // <-- Biblioteca necessária para preencher os zeros!

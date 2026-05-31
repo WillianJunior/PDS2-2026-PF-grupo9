@@ -1,4 +1,4 @@
-#include "../include/usuario.h"
+#include "../include/usuario.hpp"
 
 using namespace std;
 

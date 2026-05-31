@@ -1,9 +1,9 @@
-#ifndef CARRINHO_H
-#define CARRINHO_H
+#ifndef CARRINHO_HPP
+#define CARRINHO_HPP
 
 #include <vector>
 #include <string>
-#include "ItemVendido.h"
+#include "ItemVendido.hpp"
 
 class Carrinho {
 private:

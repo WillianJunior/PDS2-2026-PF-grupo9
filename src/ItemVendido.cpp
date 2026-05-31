@@ -1,4 +1,4 @@
-#include "../include/ItemVendido.h"
+#include "../include/ItemVendido.hpp"
 
 ItemVendido::ItemVendido(std::string id, std::string nome, double preco, int qtd)
     : _idProduto(id), _nomeProduto(nome), _precoNaVenda(preco), _quantidade(qtd) {}

@@ -1,9 +1,9 @@
-#ifndef PEDIDO_H
-#define PEDIDO_H
+#ifndef PEDIDO_HPP
+#define PEDIDO_HPP
 
 #include <vector>
 #include <string>
-#include "ItemVendido.h" 
+#include "ItemVendido.hpp" 
 
 class Pedido {
 private:

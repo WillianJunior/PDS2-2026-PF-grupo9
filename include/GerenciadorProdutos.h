@@ -1,9 +1,9 @@
-#ifndef GERENCIADOR_PRODUTOS_H
-#define GERENCIADOR_PRODUTOS_H
+#ifndef GERENCIADOR_PRODUTOS_HPP
+#define GERENCIADOR_PRODUTOS_HPP
 
 #include <vector>
 #include <string>
-#include "produto.h"
+#include "produto.hpp"
 
 class GerenciadorProdutos {
 private:

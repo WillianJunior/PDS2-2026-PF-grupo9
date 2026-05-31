@@ -1,9 +1,9 @@
-#ifndef TERMINAL_UI_H
-#define TERMINAL_UI_H
+#ifndef TERMINAL_UI_HPP
+#define TERMINAL_UI_HPP
 
-#include "GerenciadorUsuarios.h"
-#include "GerenciadorProdutos.h"
-#include "Carrinho.h" // <-- NOVO
+#include "GerenciadorUsuarios.hpp"
+#include "GerenciadorProdutos.hpp"
+#include "Carrinho.hpp" 
 
 using namespace std;
 
@@ -11,7 +11,7 @@ class TerminalUI {
 private:
     GerenciadorUsuarios gerenciador;
     GerenciadorProdutos gerenciadorProdutos;
-    Carrinho carrinhoCompras; // <-- O Carrinho da sessão!
+    Carrinho carrinhoCompras;
 
     void limparTela();
     

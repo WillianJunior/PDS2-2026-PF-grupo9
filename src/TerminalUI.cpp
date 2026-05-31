@@ -1,4 +1,4 @@
-#include "../include/TerminalUI.h"
+#include "../include/TerminalUI.hpp"
 #include <iostream>
 #include <cstdlib>
 #include <vector>

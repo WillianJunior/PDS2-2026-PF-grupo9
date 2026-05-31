@@ -1,11 +1,11 @@
-#ifndef ITEM_VENDIDO_H
-#define ITEM_VENDIDO_H
+#ifndef ITEM_VENDIDO_HPP
+#define ITEM_VENDIDO_HPP
 
 #include <string>
 
 class ItemVendido {
 private:
-    std::string _idProduto; // <-- ID agora é string!
+    std::string _idProduto;
     std::string _nomeProduto;
     double _precoNaVenda;
     int _quantidade;

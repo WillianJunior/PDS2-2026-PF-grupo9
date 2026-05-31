@@ -1,4 +1,4 @@
-#include "../include/produto.h"
+#include "../include/produto.hpp"
 
 Produto::Produto(std::string id, std::string nome, double preco, std::string categoria, std::string subcategoria, std::string loginAnunciante)
     : _id(id), _nome(nome), _preco(preco), _categoria(categoria), _subcategoria(subcategoria), _loginAnunciante(loginAnunciante) {}

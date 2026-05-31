@@ -1,11 +1,11 @@
-#ifndef PRODUTO_H
-#define PRODUTO_H
+#ifndef PRODUTO_HPP
+#define PRODUTO_HPP
 
 #include <string>
 
 class Produto {
 private:
-    std::string _id; // <-- AGORA É STRING! Ex: "0000100001"
+    std::string _id;
     std::string _nome;
     double _preco;
     std::string _categoria;
@@ -15,7 +15,7 @@ private:
 public:
     Produto(std::string id, std::string nome, double preco, std::string categoria, std::string subcategoria, std::string loginAnunciante);
 
-    std::string get_id() const; // <-- AGORA RETORNA STRING
+    std::string get_id() const;
     std::string get_nome() const;
     double get_preco() const;
     std::string get_categoria() const;

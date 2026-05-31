@@ -1,9 +1,9 @@
-#ifndef GERENCIADOR_USUARIOS_H
-#define GERENCIADOR_USUARIOS_H
+#ifndef GERENCIADOR_USUARIOS_HPP
+#define GERENCIADOR_USUARIOS_HPP
 
 #include <vector>
 #include <string>
-#include "usuario.h"
+#include "usuario.hpp"
 
 using namespace std;
 
