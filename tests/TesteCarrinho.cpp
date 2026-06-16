@@ -1,7 +1,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.hpp"
 #include "../include/Carrinho.hpp"
-#include "../include/itemVendido.hpp"
+#include "../include/ItemVendido.hpp"
 #include <cstdio> // Necessário para a função std::remove (apagar ficheiros)
 #include <string>
 

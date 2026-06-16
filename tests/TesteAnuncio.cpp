@@ -1,8 +1,8 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.hpp"
 #include "../include/Anuncio.hpp"
-#include "../include/produto.hpp"
-#include "../include/usuario.hpp"
+#include "../include/Produto.hpp"
+#include "../include/Usuario.hpp"
 
 TEST_CASE("Teste Anuncio - Construtor") {
     // Produto exige 6 campos (ID em string)

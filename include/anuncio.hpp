@@ -2,49 +2,27 @@
 #define ANUNCIO_HPP
 
 #include <string>
-#include "produto.hpp"
-#include "usuario.hpp"
+#include "Produto.hpp"
+#include "Usuario.hpp"
 
 class Anuncio {
 private:
-int _idAnuncio;
-Produto* _produto;
+    int _idAnuncio;
+    Produto* _produto;
     Usuario* _vendedor;
     int _quantidade;
     bool _estaAtivo;
 
 public:
+    // Apenas as declarações terminando em ponto e vírgula!
+    Anuncio(int id, Produto* produto, Usuario* vendedor, int quantidade);
 
-    Anuncio(int id, Produto* produto, Usuario* vendedor, int quantidade)
-        : _idAnuncio(id),
-          _produto(produto),
-          _vendedor(vendedor),
-          _quantidade(quantidade),
-          _estaAtivo(true) {}
-
-    void set_status(bool ativo){
-        _estaAtivo = ativo;
-    }
-
-    bool get_status() const{
-        return _estaAtivo;
-    }
-
-    Produto* get_produto() const{
-        return _produto;
-    }
-
-    Usuario* get_vendedor() const{
-        return _vendedor;
-    }
-
-    int get_quantidade() const{
-        return _quantidade;
-    }
-
-    bool validar_anuncio() const{
-        return _quantidade > 0;
-    }
+    void set_status(bool ativo);
+    bool get_status() const;
+    Produto* get_produto() const;
+    Usuario* get_vendedor() const;
+    int get_quantidade() const;
+    bool validar_anuncio() const;
 };
 
 #endif

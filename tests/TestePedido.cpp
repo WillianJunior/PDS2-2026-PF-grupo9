@@ -1,7 +1,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.hpp"
 #include "../include/Pedido.hpp"
-#include "../include/itemVendido.hpp"
+#include "../include/ItemVendido.hpp"
 
 TEST_CASE("Teste Pedido - Estado Inicial") {
     Pedido pedido(1, "henrique");

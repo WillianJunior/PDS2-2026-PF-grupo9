@@ -12,8 +12,8 @@ TESTES = \
 	$(BUILD_DIR)/TesteItemVendido \
 	$(BUILD_DIR)/TestePedido \
 	$(BUILD_DIR)/TesteCarrinho \
-	$(BUILD_DIR)/TesteAnuncio 
-
+	$(BUILD_DIR)/TesteAnuncio \
+	$(BUILD_DIR)/TesteTransacao
 
 all: test
 
@@ -29,6 +29,7 @@ test: clean dirs $(TESTES)
 	-./$(BUILD_DIR)/TestePedido
 	-./$(BUILD_DIR)/TesteCarrinho
 	-./$(BUILD_DIR)/TesteAnuncio
+	-./$(BUILD_DIR)/TesteTransacao
 
 	@echo ""
 	@echo "===== ORGANIZANDO ARQUIVOS GERADOS ====="
@@ -66,6 +67,10 @@ $(BUILD_DIR)/TesteCarrinho:
 
 $(BUILD_DIR)/TesteAnuncio:
 	$(CXX) $(CFLAGS) tests/TesteAnuncio.cpp src/Anuncio.cpp src/produto.cpp src/usuario.cpp -o $@
+
+# --- NOVA REGRA PARA TRANSACOES ---
+$(BUILD_DIR)/TesteTransacao:
+	$(CXX) $(CFLAGS) tests/TesteTransacao.cpp src/Transacao.cpp src/Compra.cpp src/Troca.cpp src/Anuncio.cpp src/produto.cpp src/usuario.cpp -o $@
 
 clean:
 	@echo "Limpando o ambiente..."

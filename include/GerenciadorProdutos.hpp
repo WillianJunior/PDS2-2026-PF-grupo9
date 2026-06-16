@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <string>
-#include "produto.hpp"
+#include "Produto.hpp"
 
 class GerenciadorProdutos {
 private:

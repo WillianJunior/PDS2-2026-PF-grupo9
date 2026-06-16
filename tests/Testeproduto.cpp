@@ -1,6 +1,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.hpp"
-#include "../include/produto.hpp"
+#include "../include/Produto.hpp"
 
 TEST_CASE("Teste Produto - Retorno de Dados") {
     // Testa o construtor completo
@@ -12,5 +12,5 @@ TEST_CASE("Teste Produto - Retorno de Dados") {
     CHECK(p.get_preco() == doctest::Approx(1200.50));
     CHECK(p.get_categoria() == "Moveis");
     CHECK(p.get_subcategoria() == "Escritorio");
-    CHECK(p.get_loginAnunciante() == "vendedor@gmail.com");
+    CHECK(p.get_login_anunciante() == "vendedor@gmail.com");
 }
