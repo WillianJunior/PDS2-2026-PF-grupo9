@@ -17,7 +17,7 @@ private:
 
 public:
     GerenciadorUsuarios();
-    void registrarUsuario(const string& nome, const string& login, const string& senha);
+    bool registrarUsuario(const string& nome, const string& login, const string& senha);
     Usuario* autenticar(const string& loginIngressado, const string&senhaIngressado);
 };
 

@@ -58,8 +58,11 @@ void TerminalUI::menuCadastro() {
     cout << "Digite sua Senha: ";
     cin >> senha;
 
-    gerenciador.registrarUsuario(nome, login, senha);
-    cout << "\nUsuario cadastrado com sucesso!" << endl;
+    if (gerenciador.registrarUsuario(nome, login, senha)) {
+    cout << "Cadastro realizado com sucesso!" << endl;
+} else {
+    cout << "Erro: Este e-mail ja esta cadastrado no sistema!" << endl;
+}
     
     cout << "\nPressione Enter para voltar ao menu principal...";
     cin.ignore();
@@ -155,35 +158,43 @@ void TerminalUI::menuAnunciante(Usuario* usuario) {
             cin >> preco;
 
             cout << "\nEscolha a Categoria:" << endl;
-            cout << "1 - Veiculo\n2 - Eletrodomestico\n3 - Roupa\nOpcao: ";
+            cout << "1 - Veiculo\n2 - Eletrodomestico\n3 - Roupa\n4 - Outros\nOpcao: ";
             cin >> opcaoCat;
-
-            if (opcaoCat == 1) categoriaEscolhida = "Veiculo";
+if (opcaoCat == 1) categoriaEscolhida = "Veiculo";
             else if (opcaoCat == 2) categoriaEscolhida = "Eletrodomestico";
-            else categoriaEscolhida = "Roupa";
+            else if (opcaoCat == 3) categoriaEscolhida = "Roupa";
+            else categoriaEscolhida = "Outros";
 
-            cout << "\nEscolha a Subcategoria:" << endl;
-            if (categoriaEscolhida == "Veiculo") {
-                cout << "1 - Carro\n2 - Moto\n3 - Caminhao\nOpcao: ";
-                cin >> opcaoSub;
-                if (opcaoSub == 1) subcategoriaEscolhida = "Carro";
-                else if (opcaoSub == 2) subcategoriaEscolhida = "Moto";
-                else subcategoriaEscolhida = "Caminhao";
+            // Se for "Outros", define a subcategoria automaticamente e pula o menu
+            if (categoriaEscolhida == "Outros") {
+                subcategoriaEscolhida = "Geral";
             } 
-            else if (categoriaEscolhida == "Eletrodomestico") {
-                cout << "1 - Cozinha\n2 - Quarto\n3 - Escritorio\n4 - Gamer\nOpcao: ";
-                cin >> opcaoSub;
-                if (opcaoSub == 1) subcategoriaEscolhida = "Cozinha";
-                else if (opcaoSub == 2) subcategoriaEscolhida = "Quarto";
-                else if (opcaoSub == 3) subcategoriaEscolhida = "Escritorio";
-                else subcategoriaEscolhida = "Gamer";
-            }
-            else if (categoriaEscolhida == "Roupa") {
-                cout << "1 - Camisa\n2 - Calca\n3 - Tenis\nOpcao: ";
-                cin >> opcaoSub;
-                if (opcaoSub == 1) subcategoriaEscolhida = "Camisa";
-                else if (opcaoSub == 2) subcategoriaEscolhida = "Calca";
-                else subcategoriaEscolhida = "Tenis";
+            else {
+                // Só imprime e pede a subcategoria se a categoria principal NÃO for "Outros"
+                cout << "\nEscolha a Subcategoria:" << endl;
+                
+                if (categoriaEscolhida == "Veiculo") {
+                    cout << "1 - Carro\n2 - Moto\n3 - Caminhao\nOpcao: ";
+                    cin >> opcaoSub;
+                    if (opcaoSub == 1) subcategoriaEscolhida = "Carro";
+                    else if (opcaoSub == 2) subcategoriaEscolhida = "Moto";
+                    else subcategoriaEscolhida = "Caminhao";
+                } 
+                else if (categoriaEscolhida == "Eletrodomestico") {
+                    cout << "1 - Cozinha\n2 - Quarto\n3 - Escritorio\n4 - Gamer\nOpcao: ";
+                    cin >> opcaoSub;
+                    if (opcaoSub == 1) subcategoriaEscolhida = "Cozinha";
+                    else if (opcaoSub == 2) subcategoriaEscolhida = "Quarto";
+                    else if (opcaoSub == 3) subcategoriaEscolhida = "Escritorio";
+                    else subcategoriaEscolhida = "Gamer";
+                }
+                else if (categoriaEscolhida == "Roupa") {
+                    cout << "1 - Camisa\n2 - Calca\n3 - Tenis\nOpcao: ";
+                    cin >> opcaoSub;
+                    if (opcaoSub == 1) subcategoriaEscolhida = "Camisa";
+                    else if (opcaoSub == 2) subcategoriaEscolhida = "Calca";
+                    else subcategoriaEscolhida = "Tenis";
+                }
             }
 
             gerenciadorProdutos.cadastrarProduto(nome, preco, categoriaEscolhida, subcategoriaEscolhida, usuario->getLogin(), usuario->getId());

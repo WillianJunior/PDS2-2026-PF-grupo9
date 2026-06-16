@@ -43,13 +43,24 @@ void GerenciadorUsuarios::salvarUsuario(const Usuario& usuario) {
     }
 }
 
-void GerenciadorUsuarios::registrarUsuario(const string& nome, const string& login, const string& senha) {
-    // Gera o ID automaticamente: se tem 0 usuários, ele será o 1. Se tem 5, será o 6.
+bool GerenciadorUsuarios::registrarUsuario(const string& nome, const string& login, const string& senha) {
+    // 1. Verifica se o login (e-mail) já existe na lista de usuários carregados
+    for (const auto& usuario : usuarios) {
+        if (usuario.getLogin() == login) {
+            // Encontrou um usuário com o mesmo e-mail! Interrompe o cadastro.
+            return false; 
+        }
+    }
+
+    // 2. Se o loop terminar e não achar ninguém, gera o ID e cadastra normalmente
     int novoId = usuarios.size() + 1; 
     
     Usuario novoUsuario(novoId, nome, login, senha);
     usuarios.push_back(novoUsuario);
     salvarUsuario(novoUsuario);
+
+    // Retorna true para avisar à interface que o cadastro foi um sucesso
+    return true; 
 }
 
 Usuario* GerenciadorUsuarios::autenticar (const string& loginIngressado, const string& senhaIngressado) {
