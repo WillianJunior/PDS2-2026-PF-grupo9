@@ -42,7 +42,8 @@ void GerenciadorProdutos::salvarProdutoNoArquivo(const Produto& produto) {
                 << produto.get_preco() << ","
                 << produto.get_categoria() << ","
                 << produto.get_subcategoria() << ","
-                << produto.get_login_anunciante() << "\n";
+                << produto.get_login_anunciante() << ","
+                << produto.is_ativo() << "\n";
         arquivo.close();
     }
 }
@@ -56,7 +57,8 @@ void GerenciadorProdutos::atualizarArquivoCompleto() {
                     << produto.get_preco() << ","
                     << produto.get_categoria() << ","
                     << produto.get_subcategoria() << ","
-                    << produto.get_login_anunciante() << "\n";
+                    << produto.get_login_anunciante() << ","
+                    << produto.is_ativo() << "\n";
         }
         arquivo.close();
     }
@@ -94,6 +96,20 @@ bool GerenciadorProdutos::editarProduto(const std::string& id, const std::string
     return false; 
 }
 
+bool GerenciadorProdutos::inativarProduto(const std::string& id) {
+    for (auto& p : _produtos) {
+        if (p.get_id() == id) {
+            //Soft delete
+            p.set_ativo(false); 
+            
+            // Salva a alteração no produtos.txt para não voltar quando fechar o programa
+            atualizarArquivoCompleto(); 
+            return true; 
+        }
+    }
+    return false; // Retorna falso se não encontrar o ID
+}
+
 const std::vector<Produto>& GerenciadorProdutos::get_produtos() const {
     return _produtos;
 }
@@ -105,4 +121,17 @@ Produto* GerenciadorProdutos::buscarProdutoPorId(const std::string& id) {
         }
     }
     return nullptr; 
+}
+
+std::vector<Produto*> GerenciadorProdutos::buscarProdutosPorUsuario(const std::string& loginUsuario) {
+    std::vector<Produto*> produtosDoUsuario;
+    
+    // Varre todos os produtos cadastrados e devolve os que pertencem ao utilizador
+    for (auto& prod : _produtos) {
+        if (prod.get_login_anunciante() == loginUsuario) {
+            produtosDoUsuario.push_back(&prod);
+        }
+    }
+    
+    return produtosDoUsuario;
 }

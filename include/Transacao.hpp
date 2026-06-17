@@ -2,7 +2,7 @@
 #define TRANSACAO_HPP
 
 #include <string>
-#include "Usuario.hpp"
+#include "Usuario.hpp" 
 
 enum class StatusTransacao {
     PENDENTE,
@@ -18,6 +18,7 @@ protected:
     Usuario* _usuarioReceptor;    
     StatusTransacao _status;
     std::string _dataCriacao;
+    std::string _mensagem; 
 
 public:
     Transacao(const std::string& id, Usuario* proponente, Usuario* receptor);
@@ -31,6 +32,9 @@ public:
     
     std::string get_data_criacao() const;
     void set_data_criacao(const std::string& data);
+
+    std::string get_mensagem() const;
+    void set_mensagem(const std::string& msg);
 
     virtual bool validar_transacao() const = 0;
     virtual void executar_transacao() = 0;

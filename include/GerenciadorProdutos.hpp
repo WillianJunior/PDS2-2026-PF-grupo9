@@ -17,11 +17,14 @@ private:
 public:
     GerenciadorProdutos();
     
-    // O ID sumiu daqui, mas passamos o idUsuarioLogado para fazer a mágica lá dentro!
     void cadastrarProduto(const std::string& nome, double preco, const std::string& categoria, const std::string& subcategoria, const std::string& loginAnunciante, int idUsuarioLogado);
     
     // ID agora é string
     bool editarProduto(const std::string& id, const std::string& novoNome, double novoPreco, const std::string& novaCat, const std::string& novaSub);
+   
+    bool inativarProduto(const std::string& id);
+
+    std::vector<Produto*> buscarProdutosPorUsuario(const std::string& loginUsuario);
     
     const std::vector<Produto>& get_produtos() const;
     Produto* buscarProdutoPorId(const std::string& id); // ID agora é string

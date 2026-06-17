@@ -3,7 +3,10 @@
 
 #include "GerenciadorUsuarios.hpp"
 #include "GerenciadorProdutos.hpp"
-#include "Carrinho.hpp" 
+#include "Carrinho.hpp"
+#include "SistemaEscambo.hpp"
+#include "Transacao.hpp"      
+#include "Troca.hpp"         
 
 using namespace std;
 
@@ -12,6 +15,7 @@ private:
     GerenciadorUsuarios gerenciador;
     GerenciadorProdutos gerenciadorProdutos;
     Carrinho carrinhoCompras;
+    SistemaEscambo sistema;   
 
     void limparTela();
     

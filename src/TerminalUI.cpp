@@ -139,7 +139,8 @@ void TerminalUI::menuAnunciante(Usuario* usuario) {
         cout << "1 - Cadastrar Novo Produto" << endl;
         cout << "2 - Ver Minha Vitrine" << endl;
         cout << "3 - Editar um Produto" << endl;
-        cout << "4 - Voltar" << endl;
+        cout << "4 - Notificacoes" << endl;
+        cout << "5 - Voltar" << endl;
         cout << "Escolha uma opcao: ";
         cin >> opcao;
 
@@ -160,6 +161,7 @@ void TerminalUI::menuAnunciante(Usuario* usuario) {
             cout << "\nEscolha a Categoria:" << endl;
             cout << "1 - Veiculo\n2 - Eletrodomestico\n3 - Roupa\n4 - Outros\nOpcao: ";
             cin >> opcaoCat;
+
 if (opcaoCat == 1) categoriaEscolhida = "Veiculo";
             else if (opcaoCat == 2) categoriaEscolhida = "Eletrodomestico";
             else if (opcaoCat == 3) categoriaEscolhida = "Roupa";
@@ -353,8 +355,43 @@ if (opcaoCat == 1) categoriaEscolhida = "Veiculo";
                 }
             }
         }
+    
+        else if (opcao == 4) {
+            limparTela();
+            cout << "\n=== CAIXA DE ENTRADA (NOTIFICACOES) ===" << endl;
 
-    } while (opcao != 4); 
+            vector<Transacao*> propostas = sistema.getTransacoes().buscarPropostasRecebidas(usuario);
+            
+            if (propostas.empty()) {
+                cout << "Nao tens propostas pendentes no momento." << endl;
+            } else {
+                for (Transacao* t : propostas) {
+                    if (Troca* troca = dynamic_cast<Troca*>(t)) {
+                        cout << "\n[NOVA PROPOSTA DE E-SCAMBO]" << endl;
+                        cout << "De: " << troca->get_usuario_proponente()->getNome() << endl;
+                        cout << "Quer o teu: " << troca->get_anuncio_alvo()->get_produto()->get_nome() << endl;
+                        cout << "Oferece: " << troca->get_anuncio_ofertado()->get_produto()->get_nome() << endl;
+                        cout << "Mensagem: \"" << troca->get_mensagem() << "\"" << endl;
+                        
+                        cout << "\n1 - Aceitar Troca\n2 - Recusar Troca\n3 - Decidir Depois\nOpcao: ";
+                        int resp;
+                        cin >> resp;
+                        
+                        if (resp == 1) {
+                            sistema.processarRespostaTroca(t, true);
+                            cout << "\n[SUCESSO] Troca aceite! Os produtos foram removidos do mercado." << endl;
+                        } else if (resp == 2) {
+                            sistema.processarRespostaTroca(t, false);
+                            cout << "\n[AVISO] Proposta recusada." << endl;
+                        }
+                    }
+                }
+            }     
+
+        } 
+    }
+
+while (opcao != 5);
 }
 
 // ==========================================
