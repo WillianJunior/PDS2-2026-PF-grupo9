@@ -3,28 +3,28 @@
 
 #include <vector>
 #include <string>
+#include <memory>
 #include "Transacao.hpp"
-#include "Compra.hpp"
-#include "Troca.hpp"
 #include "Usuario.hpp"
+#include "Troca.hpp"
+#include "Compra.hpp"
 
 class GerenciadorTransacoes {
 private:
-    std::vector<Transacao*> _transacoes;
-    const std::string NOME_ARQUIVO = "transacoes.txt"; 
+    std::vector<std::unique_ptr<Transacao>> _transacoes;
+    const std::string NOME_ARQUIVO = "transacoes.txt";
+
+    void salvarTransacaoNoArquivo(Transacao* t);
+    void atualizarArquivoCompleto();
 
 public:
     GerenciadorTransacoes();
-    ~GerenciadorTransacoes();
+    ~GerenciadorTransacoes(); 
 
-    void adicionarTransacao(Transacao* transacao);
+    void adicionarTransacao(std::unique_ptr<Transacao> transacao);
+
     std::vector<Transacao*> buscarPropostasRecebidas(Usuario* receptor);
     std::vector<Transacao*> buscarPropostasEnviadas(Usuario* proponente);
-
-    // === MÉTODOS DE PERSISTÊNCIA ===
-    void salvarTransacaoNoArquivo(Transacao* t);
-    void atualizarArquivoCompleto();
-    // void carregarTransacoes(...); // Faremos este no próximo passo!
 };
 
 #endif
