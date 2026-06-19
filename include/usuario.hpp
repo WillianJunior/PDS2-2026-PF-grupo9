@@ -8,11 +8,12 @@ using namespace std;
 class Usuario {
 private:
     int _id;
-    string nome;
-    string login;
-    string senha;
+    string _nome;
+    string _login;
+    string _senha;
+    string _chavePix;
 public:
-    Usuario(int id, string nome, string email, string senha);
+    Usuario(int id, string nome, string login, string senha, string chavePix = "");
 
     virtual ~Usuario() = default;
 
@@ -21,6 +22,8 @@ public:
     string getNome() const;
     string getLogin() const;
     string getSenha() const;
+    string getChavePix() const;
+    void setChavePix(const string& pix);
 };
 
 #endif

@@ -50,7 +50,7 @@ TEST_CASE("Teste TerminalUI - Simulacao Multi-Usuario (Vendedor e Comprador)") {
         << "4\n"                    // Salvar alterações e Voltar
         << "\n"                     // Enter para continuar
         
-        << "4\n"                    // Voltar para Menu Perfil
+        << "5\n"                    // Voltar para Menu Perfil (opcao 5 no menu do Anunciante)
         << "3\n"                    // Sair da Conta (Logout)
 
         // --- 2. CRIAR COMPRADOR E EXPLORAR A VITRINE ---
@@ -66,35 +66,43 @@ TEST_CASE("Teste TerminalUI - Simulacao Multi-Usuario (Vendedor e Comprador)") {
         
         << "9\n"                    // Testar opção de perfil inválida
         << "1\n"                    // Perfil: Entrar como Comprador
-        
+
         << "2\n" << "\n"            // Ver Carrinho (Vazio) -> Enter
         << "3\n" << "\n"            // Salvar Carrinho (Vazio) -> Enter
-        
-        // Testar erro de quantidade (0)
+
+        // Testar erro de quantidade (0) ao Comprar
         << "1\n"                    // Ver Vitrine / Pesquisar
         << "1\n"                    // Ver TODOS
-        << "1\n"                    // Deseja comprar? 1 - Sim
+        << "1\n"                    // Menu de Acao: 1 - Comprar
         << "1\n"                    // Escolher produto 1 (Camiseta)
         << "0\n"                    // Quantidade: 0 (Inválida!)
         << "\n"                     // Enter para continuar
-        
-        // Testar pesquisa por NOME e comprar com sucesso
+
+        // Testar pesquisa por NOME e comprar com sucesso (deve exibir o PIX do vendedor)
         << "1\n"                    // Ver Vitrine / Pesquisar
         << "3\n"                    // Pesquisar por Nome
         << "camise\n"               // Texto da busca (Testa o ::tolower)
-        << "1\n"                    // Deseja comprar? 1 - Sim
+        << "1\n"                    // Menu de Acao: 1 - Comprar
         << "1\n"                    // Escolher produto 1
         << "2\n"                    // Quantidade: 2
         << "\n"                     // Enter para continuar
-        
-        // Testar pesquisa por CATEGORIA sem subcategoria
+
+        // Testar pesquisa por CATEGORIA com subcategoria e escolher "Voltar" no menu de acao
         << "1\n"                    // Ver Vitrine / Pesquisar
         << "2\n"                    // Pesquisar por Categoria
-        << "2\n"                    // Categoria: Eletrodoméstico
-        << "2\n"                    // Refinar com subcategoria? 2 - Não
-        << "2\n"                    // Deseja comprar? 2 - Não
+        << "3\n"                    // Categoria: Roupa
+        << "1\n"                    // Refinar com subcategoria? 1 - Sim
+        << "1\n"                    // Subcategoria: Camisa
+        << "3\n"                    // Menu de Acao: 3 - Voltar
         << "\n"                     // Enter para continuar
-        
+
+        // Testar proposta de E-scambo (comprador ainda nao tem produtos proprios para oferecer)
+        << "1\n"                    // Ver Vitrine / Pesquisar
+        << "1\n"                    // Ver TODOS
+        << "2\n"                    // Menu de Acao: 2 - Propor E-scambo
+        << "1\n"                    // Produto alvo: Camiseta
+        << "\n"                     // Enter para continuar
+
         << "2\n" << "\n"            // Ver Carrinho (Agora cheio!) -> Enter
         << "3\n" << "\n"            // Salvar Carrinho (Cheio) -> Enter
         
@@ -116,5 +124,7 @@ TEST_CASE("Teste TerminalUI - Simulacao Multi-Usuario (Vendedor e Comprador)") {
     CHECK(saida.find("Produto atualizado com sucesso!") != std::string::npos);
     CHECK(saida.find("Quantidade invalida.") != std::string::npos);
     CHECK(saida.find("adicionado(s) ao carrinho e salvo.") != std::string::npos);
+    CHECK(saida.find("Chave PIX:") != std::string::npos);
+    CHECK(saida.find("Voce nao tem produtos ativos para oferecer em troca.") != std::string::npos);
     CHECK(saida.find("Saindo do sistema. Ate logo!") != std::string::npos);
 }

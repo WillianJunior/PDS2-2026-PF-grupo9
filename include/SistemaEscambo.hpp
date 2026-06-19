@@ -15,6 +15,7 @@ private:
     GerenciadorUsuarios _usuarios;
     GerenciadorProdutos _produtos;
     GerenciadorTransacoes _transacoes;
+    std::vector<std::unique_ptr<Anuncio>> _anuncios;
 
 public:
     SistemaEscambo();
@@ -24,9 +25,14 @@ public:
     GerenciadorTransacoes& getTransacoes();
 
     std::vector<Produto*> buscarProdutosDoUsuario(const std::string& login);
-    
+
+    // Garante um Anuncio estavel (ponteiro valido durante toda a execucao) para um Produto,
+    // criando-o sob demanda. Necessario porque Troca/Compra trabalham com Anuncio*, mas a
+    // vitrine so conhece Produto*.
+    Anuncio* obterAnuncio(Produto* produto);
+
     bool enviarPropostaTroca(Usuario* proponente, Usuario* receptor, Anuncio* alvo, Anuncio* ofertado, const std::string& mensagem);
-    
+
     void processarRespostaTroca(Transacao* transacao, bool aceitar);
 };
 

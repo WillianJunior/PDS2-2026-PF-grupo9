@@ -19,6 +19,7 @@ public:
     GerenciadorUsuarios();
     bool registrarUsuario(const string& nome, const string& login, const string& senha);
     Usuario* autenticar(const string& loginIngressado, const string&senhaIngressado);
+    Usuario* buscarUsuarioPorLogin(const std::string& login);
 };
 
 #endif

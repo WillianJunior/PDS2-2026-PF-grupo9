@@ -1,10 +1,12 @@
 #include "../include/TerminalUI.hpp"
+#include "../include/Anuncio.hpp"
 #include <iostream>
 #include <cstdlib>
 #include <vector>
 #include <algorithm>
 #include <cctype>
-#include <fstream> 
+#include <fstream>
+#include <limits>
 
 using namespace std;
 
@@ -58,7 +60,7 @@ void TerminalUI::menuCadastro() {
     cout << "Digite sua Senha: ";
     cin >> senha;
 
-    if (gerenciador.registrarUsuario(nome, login, senha)) {
+    if (sistema.getUsuarios().registrarUsuario(nome, login, senha)) {
     cout << "Cadastro realizado com sucesso!" << endl;
 } else {
     cout << "Erro: Este e-mail ja esta cadastrado no sistema!" << endl;
@@ -79,7 +81,7 @@ void TerminalUI::menuLogin() {
     cout << "Digite sua senha: ";
     cin >> senha;
 
-    Usuario* usuarioAutenticado = gerenciador.autenticar(login, senha);
+    Usuario* usuarioAutenticado = sistema.getUsuarios().autenticar(login, senha);
 
     if (usuarioAutenticado != nullptr) {
         cout << "\nLogin bem-sucedido!" << endl;
@@ -199,7 +201,7 @@ if (opcaoCat == 1) categoriaEscolhida = "Veiculo";
                 }
             }
 
-            gerenciadorProdutos.cadastrarProduto(nome, preco, categoriaEscolhida, subcategoriaEscolhida, usuario->getLogin(), usuario->getId());
+            sistema.getProdutos().cadastrarProduto(nome, preco, categoriaEscolhida, subcategoriaEscolhida, usuario->getLogin(), usuario->getId());
             
             cout << "\nProduto cadastrado com sucesso! O ID foi gerado automaticamente." << endl;
             cout << "\nPressione Enter para continuar...";
@@ -209,7 +211,7 @@ if (opcaoCat == 1) categoriaEscolhida = "Veiculo";
         } else if (opcao == 2) {
             limparTela();
             cout << "\n--- Minha Vitrine ---" << endl;
-            const auto& produtos = gerenciadorProdutos.get_produtos();
+            const auto& produtos = sistema.getProdutos().get_produtos();
 
             bool temProdutoMeu = false;
             for (const auto& p : produtos) {
@@ -234,7 +236,7 @@ if (opcaoCat == 1) categoriaEscolhida = "Veiculo";
             limparTela();
             cout << "\n--- Editar Produto ---" << endl;
             
-            const auto& produtos = gerenciadorProdutos.get_produtos();
+            const auto& produtos = sistema.getProdutos().get_produtos();
             vector<const Produto*> meusProdutos;
 
             for (const auto& p : produtos) {
@@ -327,7 +329,7 @@ if (opcaoCat == 1) categoriaEscolhida = "Veiculo";
                             }
                         } 
                         else if (opcaoEdit == 4) {
-                            gerenciadorProdutos.editarProduto(idSelecionado, nomeTemp, precoTemp, catTemp, subTemp);
+                            sistema.getProdutos().editarProduto(idSelecionado, nomeTemp, precoTemp, catTemp, subTemp);
                             cout << "\nProduto atualizado com sucesso!" << endl;
                             cout << "\nPressione Enter para continuar...";
                             cin.ignore();
@@ -483,7 +485,7 @@ void TerminalUI::menuComprador(Usuario* usuario) {
                 cout << "Buscando por: \"" << nomeFiltro << "\"\n" << endl;
             }
 
-            const auto& produtos = gerenciadorProdutos.get_produtos();
+            const auto& produtos = sistema.getProdutos().get_produtos();
             vector<const Produto*> produtosExibidos; 
 
             for (const auto& p : produtos) {
@@ -521,40 +523,132 @@ void TerminalUI::menuComprador(Usuario* usuario) {
                 cin.get();
             } else {
                 cout << "---------------------------------" << endl;
-                int querComprar;
-                cout << "Deseja adicionar algum produto ao carrinho?\n1 - Sim\n2 - Nao\nOpcao: ";
-                cin >> querComprar;
 
-                if (querComprar == 1) {
+                int opcaoAcao = 0;
+                bool entradaValida = false;
+
+                do {
+                    cout << "1 - Comprar\n2 - Propor E-scambo\n3 - Voltar\nOpcao: ";
+                    cin >> opcaoAcao;
+
+                    if (cin.fail()) {
+                        cin.clear();
+                        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        cout << "\nEntrada invalida! Digite apenas numeros.\n" << endl;
+                    } else if (opcaoAcao < 1 || opcaoAcao > 3) {
+                        cout << "\nOpcao fora do intervalo! Tente novamente.\n" << endl;
+                    } else {
+                        entradaValida = true;
+                    }
+                } while (!entradaValida);
+
+                if (opcaoAcao == 1) {
+                    // --- COMPRAR ---
                     int escolhaProduto;
                     cout << "\nDigite o NUMERO do produto na lista: ";
                     cin >> escolhaProduto;
 
-                    if (escolhaProduto > 0 && escolhaProduto <= static_cast<int>(produtosExibidos.size())) {
-                        
+                    if (cin.fail()) {
+                        cin.clear();
+                        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        cout << "\nEntrada invalida." << endl;
+                    } else if (escolhaProduto > 0 && escolhaProduto <= static_cast<int>(produtosExibidos.size())) {
+
                         const Produto* p = produtosExibidos[escolhaProduto - 1];
                         int qtd;
-                        
+
                         cout << "Produto selecionado: " << p->get_nome() << " | R$ " << p->get_preco() << endl;
                         cout << "Digite a quantidade que deseja comprar: ";
                         cin >> qtd;
 
-                        if (qtd > 0) {
+                        if (cin.fail()) {
+                            cin.clear();
+                            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                            cout << "\nQuantidade invalida." << endl;
+                        } else if (qtd > 0) {
                             ItemVendido novoItem(p->get_id(), p->get_nome(), p->get_preco(), qtd);
                             carrinhoCompras.adicionarItem(novoItem);
-                            
+
                             // Salva automaticamente após adicionar ao carrinho
                             carrinhoCompras.salvarCarrinho(usuario->getLogin());
-                            
+
                             cout << "\nSucesso! " << qtd << "x " << p->get_nome() << " adicionado(s) ao carrinho e salvo." << endl;
+
+                            Usuario* vendedor = sistema.getUsuarios().buscarUsuarioPorLogin(p->get_login_anunciante());
+                            if (vendedor) {
+                                cout << "\nPara concluir, realize o PIX para " << vendedor->getNome() << ":" << endl;
+                                cout << "Chave PIX: " << vendedor->getChavePix() << endl;
+                            } else {
+                                cout << "\nAviso: nao foi possivel localizar os dados de PIX do vendedor." << endl;
+                            }
                         } else {
                             cout << "\nQuantidade invalida." << endl;
                         }
                     } else {
                         cout << "\nErro: Numero invalido." << endl;
                     }
+
+                } else if (opcaoAcao == 2) {
+                    // --- PROPOR E-SCAMBO ---
+                    int escolhaAlvo;
+                    cout << "\nDigite o NUMERO do produto que deseja (alvo da troca): ";
+                    cin >> escolhaAlvo;
+
+                    if (cin.fail()) {
+                        cin.clear();
+                        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        cout << "\nEntrada invalida." << endl;
+                    } else if (escolhaAlvo > 0 && escolhaAlvo <= static_cast<int>(produtosExibidos.size())) {
+
+                        Produto* produtoAlvo = sistema.getProdutos().buscarProdutoPorId(produtosExibidos[escolhaAlvo - 1]->get_id());
+                        std::vector<Produto*> meusProdutos = sistema.buscarProdutosDoUsuario(usuario->getLogin());
+
+                        if (meusProdutos.empty()) {
+                            cout << "\nVoce nao tem produtos ativos para oferecer em troca." << endl;
+                        } else {
+                            cout << "\nSeus produtos disponiveis para oferecer:\n" << endl;
+                            for (size_t i = 0; i < meusProdutos.size(); ++i) {
+                                cout << "(" << i + 1 << ") " << meusProdutos[i]->get_nome()
+                                     << " | R$ " << meusProdutos[i]->get_preco()
+                                     << " | ID: " << meusProdutos[i]->get_id() << endl;
+                            }
+
+                            int escolhaOferta;
+                            cout << "\nDigite o NUMERO do produto que deseja oferecer: ";
+                            cin >> escolhaOferta;
+
+                            if (cin.fail()) {
+                                cin.clear();
+                                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                                cout << "\nEntrada invalida." << endl;
+                            } else if (escolhaOferta > 0 && escolhaOferta <= static_cast<int>(meusProdutos.size())) {
+
+                                Produto* produtoOferta = meusProdutos[escolhaOferta - 1];
+
+                                string mensagem;
+                                cout << "\nDigite uma mensagem para o vendedor: ";
+                                cin.ignore();
+                                getline(cin, mensagem);
+
+                                Usuario* receptor = sistema.getUsuarios().buscarUsuarioPorLogin(produtoAlvo->get_login_anunciante());
+                                Anuncio* anuncioAlvo = sistema.obterAnuncio(produtoAlvo);
+                                Anuncio* anuncioOferta = sistema.obterAnuncio(produtoOferta);
+
+                                if (receptor && sistema.enviarPropostaTroca(usuario, receptor, anuncioAlvo, anuncioOferta, mensagem)) {
+                                    cout << "\nProposta de E-scambo enviada com sucesso!" << endl;
+                                } else {
+                                    cout << "\nNao foi possivel enviar a proposta (verifique se os precos sao compativeis)." << endl;
+                                }
+                            } else {
+                                cout << "\nErro: Numero invalido." << endl;
+                            }
+                        }
+                    } else {
+                        cout << "\nErro: Numero invalido." << endl;
+                    }
                 }
-                
+                // opcaoAcao == 3 apenas volta, sem acao adicional
+
                 cout << "\nPressione Enter para continuar...";
                 cin.ignore();
                 cin.get();

@@ -10,23 +10,21 @@ GerenciadorUsuarios::GerenciadorUsuarios() {
 
 void GerenciadorUsuarios::carregarUsuarios() {
     ifstream arquivo(NOME_ARQUIVO);
-    if(!arquivo.is_open()){
-        return;
-    }
+    if(!arquivo.is_open()) return;
 
     string linha;
     while (getline(arquivo, linha)) {
         stringstream ss(linha);
-        string idStr, nome, login, senha;
+        string idStr, nome, login, senha, pix;
 
-        getline(ss, idStr, ','); // <-- Agora lê o ID primeiro
+        getline(ss, idStr, ','); 
         getline(ss, nome, ',');
         getline(ss, login, ',');
         getline(ss, senha, ',');
-
+        getline(ss, pix, ',');
         if (!idStr.empty()){
             int id = stoi(idStr);
-            usuarios.emplace_back(id, nome, login, senha);
+            usuarios.emplace_back(id, nome, login, senha, pix);
         }
     }
     arquivo.close();
@@ -38,7 +36,8 @@ void GerenciadorUsuarios::salvarUsuario(const Usuario& usuario) {
         arquivo << usuario.getId() << ","
                 << usuario.getNome() << ","
                 << usuario.getLogin() << ","
-                << usuario.getSenha() << "\n";
+                << usuario.getSenha() << ","
+                << usuario.getChavePix() << "\n";
         arquivo.close();
     }
 }
@@ -67,6 +66,15 @@ Usuario* GerenciadorUsuarios::autenticar (const string& loginIngressado, const s
     for (auto& usuario : usuarios) {
         if (usuario.validarLogin(loginIngressado, senhaIngressado)){
             return &usuario;
+        }
+    }
+    return nullptr;
+}
+
+Usuario* GerenciadorUsuarios::buscarUsuarioPorLogin(const string& login) {
+    for (auto& u : usuarios) {
+        if (u.getLogin() == login) {
+            return &u;
         }
     }
     return nullptr;

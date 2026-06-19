@@ -12,10 +12,8 @@ using namespace std;
 
 class TerminalUI {
 private:
-    GerenciadorUsuarios gerenciador;
-    GerenciadorProdutos gerenciadorProdutos;
     Carrinho carrinhoCompras;
-    SistemaEscambo sistema;   
+    SistemaEscambo sistema;
 
     void limparTela();
     

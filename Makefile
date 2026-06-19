@@ -51,7 +51,7 @@ $(BUILD_DIR)/TesteUsuario:
 	$(CXX) $(CFLAGS) tests/TesteUsuario.cpp src/usuario.cpp -o $@
 
 $(BUILD_DIR)/TesteTerminalUI:
-	$(CXX) $(CFLAGS) tests/TesteTerminalUI.cpp src/TerminalUI.cpp src/GerenciadorUsuarios.cpp src/GerenciadorProdutos.cpp src/Carrinho.cpp src/itemVendido.cpp src/produto.cpp src/usuario.cpp -o $@
+	$(CXX) $(CFLAGS) tests/TesteTerminalUI.cpp src/TerminalUI.cpp src/GerenciadorUsuarios.cpp src/GerenciadorProdutos.cpp src/Carrinho.cpp src/itemVendido.cpp src/produto.cpp src/usuario.cpp src/SistemaEscambo.cpp src/GerenciadorTransacoes.cpp src/Transacao.cpp src/Troca.cpp src/Compra.cpp src/Anuncio.cpp -o $@
 
 $(BUILD_DIR)/TesteGerenciadorUsuarios:
 	$(CXX) $(CFLAGS) tests/TesteGerenciadorUsuarios.cpp src/GerenciadorUsuarios.cpp src/usuario.cpp -o $@

@@ -3,11 +3,31 @@
 #include <memory>
 #include <stdexcept>
 
-SistemaEscambo::SistemaEscambo() = default;
+SistemaEscambo::SistemaEscambo() {
+    // _usuarios e _produtos ja foram carregados dos seus arquivos pelos proprios
+    // construtores (ordem de inicializacao dos membros). Agora reconstroi o histórico
+    // de transacoes usando os ponteiros reais dessas instancias.
+    _transacoes.carregarTransacoes(_usuarios, _produtos);
+}
 
 GerenciadorUsuarios& SistemaEscambo::getUsuarios() { return _usuarios; }
 GerenciadorProdutos& SistemaEscambo::getProdutos() { return _produtos; }
 GerenciadorTransacoes& SistemaEscambo::getTransacoes() { return _transacoes; }
+
+Anuncio* SistemaEscambo::obterAnuncio(Produto* produto) {
+    if (!produto) return nullptr;
+
+    for (auto& anuncio : _anuncios) {
+        if (anuncio->get_produto() == produto) {
+            return anuncio.get();
+        }
+    }
+
+    Usuario* vendedor = _usuarios.buscarUsuarioPorLogin(produto->get_login_anunciante());
+    auto novoAnuncio = std::make_unique<Anuncio>(static_cast<int>(_anuncios.size()) + 1, produto, vendedor, 1);
+    _anuncios.push_back(std::move(novoAnuncio));
+    return _anuncios.back().get();
+}
 
 std::vector<Produto*> SistemaEscambo::buscarProdutosDoUsuario(const std::string& login) {
     std::vector<Produto*> todos = _produtos.buscarProdutosPorUsuario(login); 
