@@ -48,29 +48,29 @@ test: clean dirs $(TESTES)
 
 # Regras de compilação
 $(BUILD_DIR)/TesteUsuario:
-	$(CXX) $(CFLAGS) tests/TesteUsuario.cpp src/usuario.cpp -o $@
+	$(CXX) $(CFLAGS) tests/TesteUsuario.cpp src/Usuario.cpp -o $@
 
 $(BUILD_DIR)/TesteTerminalUI:
-	$(CXX) $(CFLAGS) tests/TesteTerminalUI.cpp src/TerminalUI.cpp src/GerenciadorUsuarios.cpp src/GerenciadorProdutos.cpp src/Carrinho.cpp src/itemVendido.cpp src/produto.cpp src/usuario.cpp src/SistemaEscambo.cpp src/GerenciadorTransacoes.cpp src/Transacao.cpp src/Troca.cpp src/Compra.cpp src/Anuncio.cpp -o $@
+	$(CXX) $(CFLAGS) tests/TesteTerminalUI.cpp src/TerminalUI.cpp src/GerenciadorUsuarios.cpp src/GerenciadorProdutos.cpp src/Carrinho.cpp src/ItemVendido.cpp src/Produto.cpp src/Usuario.cpp src/SistemaEscambo.cpp src/GerenciadorTransacoes.cpp src/Transacao.cpp src/Troca.cpp src/Compra.cpp src/Anuncio.cpp -o $@
 
 $(BUILD_DIR)/TesteGerenciadorUsuarios:
-	$(CXX) $(CFLAGS) tests/TesteGerenciadorUsuarios.cpp src/GerenciadorUsuarios.cpp src/usuario.cpp -o $@
+	$(CXX) $(CFLAGS) tests/TesteGerenciadorUsuarios.cpp src/GerenciadorUsuarios.cpp src/Usuario.cpp -o $@
 
 $(BUILD_DIR)/TesteItemVendido:
-	$(CXX) $(CFLAGS) tests/TesteItemVendido.cpp src/itemVendido.cpp -o $@
+	$(CXX) $(CFLAGS) tests/TesteItemVendido.cpp src/ItemVendido.cpp -o $@
 
 $(BUILD_DIR)/TestePedido:
-	$(CXX) $(CFLAGS) tests/TestePedido.cpp src/Pedido.cpp src/itemVendido.cpp -o $@
+	$(CXX) $(CFLAGS) tests/TestePedido.cpp src/Pedido.cpp src/ItemVendido.cpp -o $@
 
 $(BUILD_DIR)/TesteCarrinho:
-	$(CXX) $(CFLAGS) tests/TesteCarrinho.cpp src/Carrinho.cpp src/itemVendido.cpp src/produto.cpp -o $@
+	$(CXX) $(CFLAGS) tests/TesteCarrinho.cpp src/Carrinho.cpp src/ItemVendido.cpp src/Produto.cpp -o $@
 
 $(BUILD_DIR)/TesteAnuncio:
-	$(CXX) $(CFLAGS) tests/TesteAnuncio.cpp src/Anuncio.cpp src/produto.cpp src/usuario.cpp -o $@
+	$(CXX) $(CFLAGS) tests/TesteAnuncio.cpp src/Anuncio.cpp src/Produto.cpp src/Usuario.cpp -o $@
 
 # --- NOVA REGRA PARA TRANSACOES ---
 $(BUILD_DIR)/TesteTransacao:
-	$(CXX) $(CFLAGS) tests/TesteTransacao.cpp src/Transacao.cpp src/Compra.cpp src/Troca.cpp src/Anuncio.cpp src/produto.cpp src/usuario.cpp -o $@
+	$(CXX) $(CFLAGS) tests/TesteTransacao.cpp src/Transacao.cpp src/Compra.cpp src/Troca.cpp src/Anuncio.cpp src/Produto.cpp src/Usuario.cpp -o $@
 
 clean:
 	@echo "Limpando o ambiente..."

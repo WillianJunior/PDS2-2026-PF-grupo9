@@ -54,6 +54,24 @@ TEST_CASE("Teste Carrinho - Salvar e Carregar em Arquivo txt") {
     std::remove(nomeArquivo.c_str());
 }
 
+TEST_CASE("Teste Carrinho - Remover Item") {
+    Carrinho c;
+    ItemVendido i1("ID01", "Mouse", 50.0, 2);
+    ItemVendido i2("ID02", "Teclado", 150.0, 1);
+
+    c.adicionarItem(i1);
+    c.adicionarItem(i2);
+
+    // Remove o primeiro item (indice 0) e verifica que sobra apenas o Teclado
+    c.removerItem(0);
+    REQUIRE(c.get_itens().size() == 1);
+    CHECK(c.get_itens()[0].get_idProduto() == "ID02");
+
+    // Indice fora do intervalo nao deve crashar nem alterar o carrinho
+    c.removerItem(99);
+    CHECK(c.get_itens().size() == 1);
+}
+
 TEST_CASE("Teste Carrinho - Carregar Arquivo Inexistente") {
     Carrinho c;
     // Tenta carregar um carrinho de um utilizador que não tem ficheiro salvo

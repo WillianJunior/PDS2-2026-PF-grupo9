@@ -1,9 +1,10 @@
 #include "../include/Carrinho.hpp"
 #include <fstream>
 #include <sstream>
+#include <utility>
 
-void Carrinho::adicionarItem(const ItemVendido& item) {
-    _itens.push_back(item);
+void Carrinho::adicionarItem(ItemVendido item) {
+    _itens.push_back(std::move(item));
 }
 
 const std::vector<ItemVendido>& Carrinho::get_itens() const {
@@ -16,6 +17,15 @@ double Carrinho::get_total() const {
         total += item.get_subtotal();
     }
     return total;
+}
+
+void Carrinho::removerItem(size_t indice) {
+    // Guarda contra índice inválido: como o índice vem de uma escolha do
+    // usuário no menu (TerminalUI), é melhor ignorar silenciosamente um
+    // índice fora do intervalo do que arriscar um acesso indevido ao vetor.
+    if (indice < _itens.size()) {
+        _itens.erase(_itens.begin() + indice);
+    }
 }
 
 void Carrinho::esvaziar() {
@@ -40,7 +50,11 @@ void Carrinho::salvarCarrinho(const std::string& loginUsuario) const {
 
 void Carrinho::carregarCarrinho(const std::string& loginUsuario) {
     esvaziar(); // Limpa a memória para não duplicar itens ao carregar
-    
+
+    // Se o arquivo não existir (usuário nunca salvou um carrinho antes), o
+    // ifstream simplesmente não abre e o laço abaixo nem executa - o carrinho
+    // fica vazio, sem precisar de nenhum tratamento de erro especial aqui.
+
     std::string nomeArquivo = "carrinho_" + loginUsuario + ".txt";
     std::ifstream arquivo(nomeArquivo);
 

@@ -5,6 +5,12 @@
 #include "Produto.hpp"
 #include "Usuario.hpp"
 
+// Anuncio é uma camada fina entre o Produto "puro" e as Transacoes (Compra/
+// Troca): ele é quem efetivamente participa de uma negociação, guardando a
+// quantidade envolvida e se está ativo pra negociar. _produto e _vendedor são
+// ponteiros NÃO donos (non-owning) - quem possui essas instâncias de verdade
+// são os vetores dentro de GerenciadorProdutos/GerenciadorUsuarios. O Anuncio
+// só aponta pra lá, então nunca deve dar delete nesses ponteiros.
 class Anuncio {
 private:
     int _idAnuncio;

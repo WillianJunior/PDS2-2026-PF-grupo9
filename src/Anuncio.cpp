@@ -1,6 +1,7 @@
 #include "Anuncio.hpp"
 
-// Implementação do construtor utilizando a lista de inicialização
+// Lista de inicialização: _estaAtivo sempre começa true, já que um Anuncio só
+// é criado quando alguém efetivamente quer negociar aquele Produto agora.
 Anuncio::Anuncio(int id, Produto* produto, Usuario* vendedor, int quantidade)
     : _idAnuncio(id),
       _produto(produto),
@@ -8,7 +9,6 @@ Anuncio::Anuncio(int id, Produto* produto, Usuario* vendedor, int quantidade)
       _quantidade(quantidade),
       _estaAtivo(true) {}
 
-// Implementação dos métodos
 void Anuncio::set_status(bool ativo) {
     _estaAtivo = ativo;
 }
@@ -29,6 +29,9 @@ int Anuncio::get_quantidade() const {
     return _quantidade;
 }
 
+// Validação simples: um Anuncio sem quantidade positiva não tem como ser
+// negociado. É uma guarda barata que a Troca/Compra checam antes de validar
+// o resto (preços, estoque), pra falhar rápido em caso óbvio.
 bool Anuncio::validar_anuncio() const {
     return _quantidade > 0;
 }

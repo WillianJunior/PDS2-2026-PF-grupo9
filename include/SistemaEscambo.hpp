@@ -10,12 +10,21 @@
 #include "Produto.hpp"
 #include "Anuncio.hpp"
 
+// Fachada (Facade) do sistema: é a ÚNICA classe que o TerminalUI (View)
+// conhece pra fazer qualquer coisa que envolva regra de negócio. Por trás
+// dela ficam escondidos os três Gerenciadores e toda a lógica de orquestrar
+// Compra/Troca - a View nunca manipula GerenciadorProdutos ou
+// GerenciadorTransacoes direto, sempre passa por aqui. Isso é o que mantém
+// o "C" (Controller) da nossa adaptação de MVC isolado do "V" (View).
 class SistemaEscambo {
 private:
+    // Ordem de declaração importa: _usuarios e _produtos são inicializados
+    // antes de _transacoes (que precisa deles prontos pra recarregar o
+    // histórico no construtor) - C++ inicializa membros na ordem em que
+    // aparecem aqui, não na ordem da lista de inicialização.
     GerenciadorUsuarios _usuarios;
     GerenciadorProdutos _produtos;
     GerenciadorTransacoes _transacoes;
-    std::vector<std::unique_ptr<Anuncio>> _anuncios;
 
 public:
     SistemaEscambo();
