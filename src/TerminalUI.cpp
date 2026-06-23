@@ -413,8 +413,12 @@ void TerminalUI::menuAnunciante(Usuario* usuario) {
         else if (opcao == 4) {
             limparTela();
             cout << "\n=== CAIXA DE ENTRADA (NOTIFICACOES) ===" << endl;
+            
 
-            vector<Transacao*> propostas = sistema.getTransacoes().buscarPropostasRecebidas(usuario);
+            // Não há um sistema de notificações "push" ou assíncrono — é só essa tela que,
+            // quando aberta pelo vendedor, consulta as transações pendentes armazenadas e as lista como caixa de entrada
+            
+            vector<Transacao*> propostas = sistema.getTransacoes().buscarPropostasRecebidas(usuario);   
 
             if (propostas.empty()) {
                 cout << "Nao tens propostas pendentes no momento." << endl;
