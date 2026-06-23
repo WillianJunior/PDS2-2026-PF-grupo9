@@ -2,8 +2,28 @@ CXX = g++
 # Flag -fprofile-dir=build garante que o lixo .gcda e .gcno vai direto para a pasta build!
 CFLAGS = -std=gnu++17 -I include --coverage -DDOCTEST_CONFIG_NO_MULTITHREADING -fprofile-dir=build
 
+# Flags do binario de uso normal: sem --coverage/doctest, que so servem pros testes.
+APP_CFLAGS = -std=gnu++17 -I include
+
 BUILD_DIR = build
 COVERAGE_DIR = $(BUILD_DIR)/coverage
+
+APP_BIN = app
+APP_SRCS = \
+	src/main.cpp \
+	src/TerminalUI.cpp \
+	src/GerenciadorUsuarios.cpp \
+	src/GerenciadorProdutos.cpp \
+	src/Carrinho.cpp \
+	src/ItemVendido.cpp \
+	src/Produto.cpp \
+	src/Usuario.cpp \
+	src/SistemaEscambo.cpp \
+	src/GerenciadorTransacoes.cpp \
+	src/Transacao.cpp \
+	src/Troca.cpp \
+	src/Compra.cpp \
+	src/Anuncio.cpp
 
 TESTES = \
 	$(BUILD_DIR)/TesteUsuario \
@@ -15,7 +35,17 @@ TESTES = \
 	$(BUILD_DIR)/TesteAnuncio \
 	$(BUILD_DIR)/TesteTransacao
 
-all: test
+.PHONY: all dirs test clean run
+
+# Default: so compila e executa o app, sem rodar a suite de testes/cobertura.
+# Para isso, use "make test" explicitamente.
+all: run
+
+$(APP_BIN): $(APP_SRCS)
+	$(CXX) $(APP_CFLAGS) $(APP_SRCS) -o $(APP_BIN)
+
+run: $(APP_BIN)
+	./$(APP_BIN)
 
 dirs:
 	@mkdir -p $(BUILD_DIR)
@@ -78,3 +108,4 @@ clean:
 	rm -f *.gcda *.gcno *.gcov
 	rm -f src/*.gcda src/*.gcno
 	rm -f tests/*.gcda tests/*.gcno
+	rm -f $(APP_BIN)

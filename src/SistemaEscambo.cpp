@@ -1,4 +1,5 @@
 #include "../include/SistemaEscambo.hpp"
+#include "../include/Compra.hpp"
 #include <random>
 #include <memory>
 #include <stdexcept>
@@ -74,6 +75,45 @@ bool SistemaEscambo::enviarPropostaTroca(Usuario* proponente, Usuario* receptor,
     return false;
 }
 
+bool SistemaEscambo::finalizarCompra(Usuario* comprador, Produto* produto, int quantidade) {
+    if (!comprador || !produto) {
+        return false;
+    }
+
+    Usuario* vendedor = _usuarios.buscarUsuarioPorLogin(produto->get_login_anunciante());
+    if (!vendedor) {
+        return false;
+    }
+
+    Anuncio* anuncio = obterAnuncio(produto);
+    if (!anuncio) {
+        return false;
+    }
+
+    // Mesmo motivo do gerador em enviarPropostaTroca: precisa de seed real
+    // (random_device) pra não repetir sempre os mesmos IDs entre execuções.
+    static std::mt19937 geradorAleatorio(std::random_device{}());
+    static std::uniform_int_distribution<int> distribuicaoId(0, 9999);
+    std::string idTransacao = "CP" + std::to_string(distribuicaoId(geradorAleatorio));
+
+    auto novaCompra = std::make_unique<Compra>(std::move(idTransacao), comprador, vendedor, anuncio, quantidade);
+    novaCompra->executar_transacao();
+
+    // executar_transacao() já validou contra a quantidade do Anuncio; aqui
+    // confirmamos contra o estoque real do Produto (autoridade de verdade) e
+    // efetivamente o debitamos. Se o estoque real não bastar, a Compra fica
+    // registrada como REJEITADA em vez de simplesmente não existir.
+    bool sucesso = novaCompra->get_status() == StatusTransacao::CONCLUIDA &&
+                   _produtos.venderProduto(produto->get_id(), quantidade);
+
+    if (!sucesso) {
+        novaCompra->set_status(StatusTransacao::REJEITADA);
+    }
+
+    _transacoes.adicionarTransacao(std::move(novaCompra));
+    return sucesso;
+}
+
 void SistemaEscambo::processarRespostaTroca(Transacao* transacao, bool aceitar) {
     if (!transacao) return;
 
@@ -101,4 +141,9 @@ void SistemaEscambo::processarRespostaTroca(Transacao* transacao, bool aceitar) 
     } else {
         transacao->set_status(StatusTransacao::REJEITADA);
     }
+
+    // Sem isto, a mudança de status (ACEITA/REJEITADA) ficava só em memória:
+    // o arquivo continuava com a transação como PENDENTE, então ao reabrir o
+    // programa a proposta voltava a aparecer pendente de novo.
+    _transacoes.atualizarArquivoCompleto();
 }

@@ -631,11 +631,6 @@ void TerminalUI::menuCarrinho(Usuario* usuario) {
             if (carrinhoCompras.get_itens().empty()) {
                 cout << "Seu carrinho esta vazio. Nao ha o que finalizar." << endl;
             } else {
-                // NOTA DE ARQUITETURA: este checkout finaliza chamando
-                // GerenciadorProdutos::venderProduto direto pra cada item, NÃO
-                // instancia uma Compra (ver Compra.hpp). Funciona pro fluxo PIX
-                // simples que o app oferece hoje, mas significa que uma Compra
-                // por aqui nunca fica registrada no histórico de Transacao.
                 for (const auto& item : carrinhoCompras.get_itens()) {
                     cout << "\nProduto: " << item.get_nomeProduto()
                          << " | Qtd: " << item.get_quantidade()
@@ -651,7 +646,7 @@ void TerminalUI::menuCarrinho(Usuario* usuario) {
                             cout << "Aviso: nao foi possivel localizar os dados de PIX do vendedor." << endl;
                         }
 
-                        if (!sistema.getProdutos().venderProduto(item.get_idProduto(), item.get_quantidade())) {
+                        if (!sistema.finalizarCompra(usuario, produtoOriginal, item.get_quantidade())) {
                             cout << "Aviso: estoque insuficiente no momento da finalizacao." << endl;
                         }
                     } else {

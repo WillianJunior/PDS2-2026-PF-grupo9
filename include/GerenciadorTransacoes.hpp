@@ -33,7 +33,6 @@ private:
     void escreverLinhaTransacao(std::ofstream& arquivo, Transacao* t) const;
 
     void salvarTransacaoNoArquivo(Transacao* t);
-    void atualizarArquivoCompleto();
 
 public:
     GerenciadorTransacoes();
@@ -41,6 +40,11 @@ public:
 
     void adicionarTransacao(std::unique_ptr<Transacao> transacao);
     void carregarTransacoes(GerenciadorUsuarios& gerUsers, GerenciadorProdutos& gerProds);
+
+    // Público porque quem muda o status de uma Transacao já carregada (ex:
+    // aceitar/rejeitar uma Troca) é a Fachada, não este Gerenciador - ele só
+    // sabe reescrever o arquivo inteiro a partir do estado atual em memória.
+    void atualizarArquivoCompleto();
 
     // REVISÃO: promovido de private pra public. SistemaEscambo tinha o seu
     // próprio std::vector<unique_ptr<Anuncio>> com uma cópia praticamente

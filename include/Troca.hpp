@@ -7,10 +7,8 @@
 #include <algorithm>
 
 // Implementação concreta de Transacao pro E-scambo (troca de produtos sem
-// dinheiro envolvido). Esta é a única das duas subclasses que está de fato
-// integrada na ponta da UI (ver SistemaEscambo::enviarPropostaTroca /
-// processarRespostaTroca) - diferente da Compra, que ainda roda em paralelo
-// por fora dessa hierarquia (ver nota em Compra.hpp).
+// dinheiro envolvido). Integrada na ponta da UI via
+// SistemaEscambo::enviarPropostaTroca / processarRespostaTroca.
 class Troca : public Transacao {
 private:
     Anuncio* _anuncioAlvo;

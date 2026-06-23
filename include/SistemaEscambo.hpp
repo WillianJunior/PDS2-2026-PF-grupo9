@@ -43,6 +43,11 @@ public:
     bool enviarPropostaTroca(Usuario* proponente, Usuario* receptor, Anuncio* alvo, Anuncio* ofertado, const std::string& mensagem);
 
     void processarRespostaTroca(Transacao* transacao, bool aceitar);
+
+    // Cria e registra uma Compra de verdade (ver Compra.hpp) pro checkout PIX,
+    // debitando o estoque real do Produto e gravando a transação no histórico.
+    // Retorna false sem registrar nada se faltar comprador/produto/vendedor.
+    bool finalizarCompra(Usuario* comprador, Produto* produto, int quantidade);
 };
 
 #endif
