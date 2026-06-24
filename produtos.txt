@@ -1,11 +1,10 @@
 0000100001,Nike Air Force,500,Roupa,Tenis,igorhendrix11@gmail.com,0,0
 0000100002,Honda Civic,95000,Veiculo,Carro,igorhendrix11@gmail.com,1,1
 0001000003,PC Gamer,5000,Eletrodomestico,Gamer,igor@ufmg.br,1,1
-0001000004,PC Gamer,5000,Eletrodomestico,Gamer,igor@ufmg.br,1,1
+0001000004,PC Gamer,5000,Eletrodomestico,Gamer,igor@ufmg.br,0,0
 0001400005,Camiseta,45,Roupa,Camisa,v@m.com,1,1
 0002100006,1,1,Veiculo,Carro,1,0,0
-0002000007,2,2,Eletrodomestico,Quarto,2,1,1
+0002000007,2,2,Eletrodomestico,Quarto,2,0,0
 0002000009,22,1,Veiculo,Carro,2,0,0
-0002200009,,1,Outros,Geral,,1,1
-0002000010,,2,Outros,Geral,2,0,0
-0002200011,,2,Outros,Geral,,0,0
+0002300009,Computador,1000,Outros,Geral,henrique@email,1,1
+0002300010,Computador,5050,Outros,Geral,henrique@email,0,0
