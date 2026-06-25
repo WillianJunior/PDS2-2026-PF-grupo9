@@ -2,10 +2,12 @@
 #include <fstream>
 #include <sstream>
 #include <utility>
+#include <filesystem>
 
 using namespace std;
 
 GerenciadorUsuarios::GerenciadorUsuarios() {
+    filesystem::create_directories("data");
     carregarUsuarios();
 }
 

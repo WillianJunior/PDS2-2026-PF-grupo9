@@ -17,7 +17,7 @@ private:
     // raiz sem precisar reescrever quem consome esses ponteiros.
     std::deque<Produto> _produtos;
 
-    const std::string NOME_ARQUIVO = "produtos.txt";
+    const std::string NOME_ARQUIVO = "data/produtos.txt";
 
     void carregarProdutos();
     void salvarProdutoNoArquivo(const Produto& produto);

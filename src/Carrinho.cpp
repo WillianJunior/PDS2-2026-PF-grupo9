@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <utility>
+#include <filesystem>
 
 void Carrinho::adicionarItem(ItemVendido item) {
     _itens.push_back(std::move(item));
@@ -33,8 +34,8 @@ void Carrinho::esvaziar() {
 }
 
 void Carrinho::salvarCarrinho(const std::string& loginUsuario) const {
-    // Cria um arquivo único para o usuário (ex: carrinho_igor@email.txt)
-    std::string nomeArquivo = "carrinho_" + loginUsuario + ".txt";
+    std::filesystem::create_directories("data");
+    std::string nomeArquivo = "data/carrinho_" + loginUsuario + ".txt";
     std::ofstream arquivo(nomeArquivo, std::ios::trunc); // Sobrescreve o arquivo com os itens atuais
 
     if (arquivo.is_open()) {
@@ -55,7 +56,7 @@ void Carrinho::carregarCarrinho(const std::string& loginUsuario) {
     // ifstream simplesmente não abre e o laço abaixo nem executa - o carrinho
     // fica vazio, sem precisar de nenhum tratamento de erro especial aqui.
 
-    std::string nomeArquivo = "carrinho_" + loginUsuario + ".txt";
+    std::string nomeArquivo = "data/carrinho_" + loginUsuario + ".txt";
     std::ifstream arquivo(nomeArquivo);
 
     if (arquivo.is_open()) {

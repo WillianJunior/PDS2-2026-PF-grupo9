@@ -24,7 +24,7 @@ class GerenciadorTransacoes {
 private:
     std::vector<std::unique_ptr<Transacao>> _transacoes;
     std::vector<std::unique_ptr<Anuncio>> _anuncios;
-    const std::string NOME_ARQUIVO = "transacoes.txt";
+    const std::string NOME_ARQUIVO = "data/transacoes.txt";
 
     // REVISÃO: extraída pra eliminar a duplicação que existia entre
     // salvarTransacaoNoArquivo e atualizarArquivoCompleto (as duas escreviam,

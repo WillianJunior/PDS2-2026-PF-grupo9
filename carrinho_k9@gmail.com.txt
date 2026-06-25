@@ -1,2 +1,0 @@
-0000100002,Honda Civic,95000,1
-0000100001,Nike Air Force,500,2

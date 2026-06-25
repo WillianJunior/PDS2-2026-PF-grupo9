@@ -3,9 +3,10 @@
 #include <sstream>
 #include <stdexcept>
 #include <utility>
+#include <filesystem>
 
 GerenciadorTransacoes::GerenciadorTransacoes() {
-    // Inicialização futura se necessário
+    std::filesystem::create_directories("data");
 }
 
 // O destrutor manual com 'delete' foi REMOVIDO.

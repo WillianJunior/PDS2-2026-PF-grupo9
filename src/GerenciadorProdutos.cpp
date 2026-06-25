@@ -3,8 +3,10 @@
 #include <sstream>
 #include <iomanip>
 #include <utility>
+#include <filesystem>
 
 GerenciadorProdutos::GerenciadorProdutos() {
+    std::filesystem::create_directories("data");
     carregarProdutos();
 }
 

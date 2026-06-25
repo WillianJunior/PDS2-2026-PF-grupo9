@@ -1,4 +1,4 @@
-#include "Anuncio.hpp"
+#include "../include/Anuncio.hpp"
 
 // Lista de inicialização: _estaAtivo sempre começa true, já que um Anuncio só
 // é criado quando alguém efetivamente quer negociar aquele Produto agora.

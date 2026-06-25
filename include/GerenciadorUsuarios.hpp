@@ -28,7 +28,7 @@ private:
     // Por convenção, nomes em CAIXA_ALTA aqui marcam uma constante "tipo macro"
     // (o caminho do arquivo nunca muda em runtime) - por isso não segue o
     // padrão de atributo privado normal com _ (esse seria pra estado mutável).
-    const string NOME_ARQUIVO = "usuarios.txt";
+    const string NOME_ARQUIVO = "data/usuarios.txt";
 
     void carregarUsuarios();
     void salvarUsuario(const Usuario& usuario);

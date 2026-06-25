@@ -1,12 +1,12 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.hpp"
-#include "../include/TerminalUI.hpp"
+#include "../include/AppController.hpp"
 #include <iostream>
 #include <sstream>
 #include <string>
 
 TEST_CASE("Teste TerminalUI - Simulacao Multi-Usuario (Vendedor e Comprador via Carrinho)") {
-    TerminalUI terminal;
+    AppController terminal;
 
     std::stringstream ecra_falso;
     std::stringstream teclado_falso;
@@ -124,7 +124,7 @@ TEST_CASE("Teste TerminalUI - Simulacao Multi-Usuario (Vendedor e Comprador via 
         << "3\n";                   // Menu: Sair
 
     // Dispara a simulação!
-    terminal.iniciar();
+    terminal.executar();
 
     // Devolve o controle ao terminal real
     std::cout.rdbuf(cout_original);
@@ -144,7 +144,7 @@ TEST_CASE("Teste TerminalUI - Simulacao Multi-Usuario (Vendedor e Comprador via 
 }
 
 TEST_CASE("Teste TerminalUI - Blindagem anti-crash contra letras, simbolos e Enter vazio") {
-    TerminalUI terminal;
+    AppController terminal;
 
     std::stringstream ecra_falso;
     std::stringstream teclado_falso;
@@ -163,7 +163,7 @@ TEST_CASE("Teste TerminalUI - Blindagem anti-crash contra letras, simbolos e Ent
         << "\n"        // Enter vazio
         << "3\n";      // Sair (opcao valida)
 
-    terminal.iniciar();
+    terminal.executar();
 
     std::cout.rdbuf(cout_original);
     std::cin.rdbuf(cin_original);
@@ -181,7 +181,7 @@ TEST_CASE("Teste TerminalUI - Blindagem anti-crash contra letras, simbolos e Ent
 }
 
 TEST_CASE("Teste TerminalUI - Estoque e rejeitado quando insuficiente e produto some da vitrine ao esgotar") {
-    TerminalUI terminal;
+    AppController terminal;
 
     std::stringstream ecra_falso;
     std::stringstream teclado_falso;
@@ -241,7 +241,7 @@ TEST_CASE("Teste TerminalUI - Estoque e rejeitado quando insuficiente e produto 
         << "3\n"                    // Sair da Conta (Logout)
         << "3\n";                   // Sair do sistema
 
-    terminal.iniciar();
+    terminal.executar();
 
     std::cout.rdbuf(cout_original);
     std::cin.rdbuf(cin_original);

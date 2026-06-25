@@ -1,17 +1,34 @@
-# Arquivos de cobertura (Gcov e HTML gerados pelo gcovr)
+# ── Build e cobertura ────────────────────────────────────────
+build/
 *.gcda
 *.gcno
 *.gcov
 *.o
-coverage*
-coverage/
 
-# Arquivos executáveis gerados pelo Makefile
+# ── Binários gerados ─────────────────────────────────────────
+app
+app.exe
+ecommerce.exe
+sistema_escambo.exe
 TesteUsuario
 TesteTerminalUI
 TesteGerenciadorUsuarios
+TesteGerenciadorProdutos
 TesteItemVendido
 TestePedido
 TesteCarrinho
 TesteAnuncio
-ecommerce.exe
+TesteTransacao
+
+# ── Dados de runtime (persistência) ──────────────────────────
+data/usuarios.txt
+data/produtos.txt
+data/transacoes.txt
+data/carrinho_*.txt
+
+# ── Documentação gerada ───────────────────────────────────────
+docs/doxygen/html/
+docs/doxygen/rtf/
+
+# ── Arquivos temporários de teste ────────────────────────────
+_testbak_*.txt
