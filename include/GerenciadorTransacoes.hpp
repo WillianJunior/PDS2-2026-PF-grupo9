@@ -42,8 +42,9 @@ public:
     void carregarTransacoes(GerenciadorUsuarios& gerUsers, GerenciadorProdutos& gerProds);
 
     // Público porque quem muda o status de uma Transacao já carregada (ex:
-    // aceitar/rejeitar uma Troca) é a Fachada, não este Gerenciador - ele só
-    // sabe reescrever o arquivo inteiro a partir do estado atual em memória.
+    // aceitar/rejeitar uma Troca) é o SistemaEscambo (Model), não este
+    // Gerenciador - ele só sabe reescrever o arquivo inteiro a partir do
+    // estado atual em memória.
     void atualizarArquivoCompleto();
 
     // REVISÃO: promovido de private pra public. SistemaEscambo tinha o seu

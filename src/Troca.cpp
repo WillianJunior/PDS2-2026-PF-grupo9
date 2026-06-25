@@ -62,7 +62,7 @@ void Troca::executar_transacao() {
     if (validar_transacao()) {
         _status = StatusTransacao::CONCLUIDA;
         // Assim como na Compra, quem efetivamente baixa o estoque/inativa os
-        // produtos é a Fachada (SistemaEscambo::processarRespostaTroca) depois
+        // produtos é o Model (SistemaEscambo::processarRespostaTroca) depois
         // que esta função confirma que a transação é válida - a Troca não
         // mexe direto no GerenciadorProdutos.
     } else {

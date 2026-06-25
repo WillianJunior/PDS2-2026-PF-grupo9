@@ -3,10 +3,10 @@
 
 #include <string>
 
-// Model do catálogo: um Produto não sabe nada sobre carrinho, transação ou
-// tela - só guarda o estado dele e as regras que dizem respeito só a ele
-// (baixar estoque, ficar inativo). Quem decide QUANDO vender/trocar é a
-// Fachada (SistemaEscambo); o Produto só executa a consequência no próprio
+// Entidade do catálogo: um Produto não sabe nada sobre carrinho, transação
+// ou tela - só guarda o estado dele e as regras que dizem respeito só a ele
+// (baixar estoque, ficar inativo). Quem decide QUANDO vender/trocar é o
+// SistemaEscambo (Model); o Produto só executa a consequência no próprio
 // estado quando mandado.
 class Produto {
 private:

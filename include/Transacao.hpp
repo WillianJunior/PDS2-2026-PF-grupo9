@@ -12,12 +12,12 @@ enum class StatusTransacao {
 };
 
 // Classe base abstrata pra Compra e Troca. A ideia de usar polimorfismo aqui
-// é clássica de Strategy: GerenciadorTransacoes e a Fachada só conhecem o
-// tipo Transacao* (validar_transacao/executar_transacao são puramente
-// virtuais), então não precisam de um if/else pra cada tipo concreto - cada
-// subclasse sabe validar e executar a própria regra de negócio. Isso deixa
-// o sistema aberto pra novos tipos de transação sem tocar no código que já
-// existe (Open/Closed Principle).
+// é clássica de Strategy: GerenciadorTransacoes e o SistemaEscambo só
+// conhecem o tipo Transacao* (validar_transacao/executar_transacao são
+// puramente virtuais), então não precisam de um if/else pra cada tipo
+// concreto - cada subclasse sabe validar e executar a própria regra de
+// negócio. Isso deixa o sistema aberto pra novos tipos de transação sem
+// tocar no código que já existe (Open/Closed Principle).
 class Transacao {
 protected:
     std::string _idTransacao;
@@ -51,8 +51,9 @@ public:
     void set_mensagem(const std::string& msg);
 
     // Cada subclasse decide o que significa "válido" pra ela (estoque, preços
-    // compatíveis, etc.) e o que fazer ao "executar". A Fachada só chama essas
-    // duas funções sem saber se está lidando com uma Compra ou uma Troca.
+    // compatíveis, etc.) e o que fazer ao "executar". O SistemaEscambo só
+    // chama essas duas funções sem saber se está lidando com uma Compra ou
+    // uma Troca.
     virtual bool validar_transacao() const = 0;
     virtual void executar_transacao() = 0;
 };

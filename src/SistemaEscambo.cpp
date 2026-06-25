@@ -121,7 +121,7 @@ void SistemaEscambo::processarRespostaTroca(Transacao* transacao, bool aceitar) 
         transacao->set_status(StatusTransacao::ACEITA);
         transacao->executar_transacao();
 
-        // dynamic_cast aqui é necessário: a Fachada só recebe um Transacao*
+        // dynamic_cast aqui é necessário: este método só recebe um Transacao*
         // genérico (vindo da caixa de notificações), mas só sabemos como
         // "liquidar" o efeito colateral (baixar estoque dos dois lados) se
         // for de fato uma Troca - uma Compra, por exemplo, teria outro efeito.

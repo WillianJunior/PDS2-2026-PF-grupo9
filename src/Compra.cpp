@@ -36,7 +36,7 @@ void Compra::executar_transacao() {
         // De propósito esta classe só marca o status como concluído - ela não
         // sabe (e não deveria saber) como persistir em arquivo nem como
         // decrementar o estoque do Produto de verdade. Essa responsabilidade
-        // é do Gerenciador/Fachada que efetivamente disparar a compra, pra
+        // é do Model (SistemaEscambo) que efetivamente disparar a compra, pra
         // não misturar "validar a regra de negócio" com "efeito colateral
         // no resto do sistema" dentro da própria Transacao.
     } else {

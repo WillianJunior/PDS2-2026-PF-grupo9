@@ -10,12 +10,15 @@
 #include "Produto.hpp"
 #include "Anuncio.hpp"
 
-// Fachada (Facade) do sistema: é a ÚNICA classe que o TerminalUI (View)
-// conhece pra fazer qualquer coisa que envolva regra de negócio. Por trás
-// dela ficam escondidos os três Gerenciadores e toda a lógica de orquestrar
-// Compra/Troca - a View nunca manipula GerenciadorProdutos ou
-// GerenciadorTransacoes direto, sempre passa por aqui. Isso é o que mantém
-// o "C" (Controller) da nossa adaptação de MVC isolado do "V" (View).
+// Camada de Model do sistema: agrega os três Gerenciadores (que funcionam
+// como Repositories de Usuario/Produto/Transacao) e concentra as regras de
+// negócio que cruzam mais de um deles - finalizar compra, propor troca,
+// processar resposta de troca. O AppController (Controller) conversa com
+// esta classe; a TerminalView (View) nunca a vê. Alguns métodos públicos
+// (finalizarCompra, processarRespostaTroca) atuam como fachada por
+// esconderem a orquestração entre gerenciadores, mas a classe não é uma
+// Facade no sentido estrito do GoF - ela é dona do estado e expõe os
+// repositórios via getters para consultas pontuais do Controller.
 class SistemaEscambo {
 private:
     // Ordem de declaração importa: _usuarios e _produtos são inicializados
