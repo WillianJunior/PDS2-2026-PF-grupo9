@@ -6,6 +6,8 @@
 0002100006,1,1,Veiculo,Carro,1,0,0
 0002000007,2,2,Eletrodomestico,Quarto,2,1,1
 0002000009,22,1,Veiculo,Carro,2,0,0
-0002200009,,1,Outros,Geral,,1,1
-0002000010,,2,Outros,Geral,2,0,0
-0002200011,,2,Outros,Geral,,0,0
+0002200009,Celta 2 portas 1.0 2001,14000,Veiculo,Carro,teste@gmail.com,0,0
+0002200010,Camisa da Gutti vermelha,150,Roupa,Camisa,teste@gmail.com,1,1
+0002300011,Pc gamer,15000,Eletrodomestico,Gamer,hfv@gmail.com,0,0
+0002200012,Pc Gamer High End,16000,Eletrodomestico,Gamer,teste@gmail.com,1,1
+0000300013,Celta 1.0 2 portas,14000,Veiculo,Carro,henrique@gmail.com,1,2
