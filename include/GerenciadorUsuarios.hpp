@@ -2,6 +2,7 @@
 #define GERENCIADOR_USUARIOS_HPP
 
 #include <deque>
+#include <fstream>
 #include <string>
 #include "Usuario.hpp"
 
@@ -32,11 +33,34 @@ private:
     void carregarUsuarios();
     void salvarUsuario(const Usuario& usuario);
 
+    // REVISÃO: extraída pra eliminar a duplicação entre salvarUsuario (que só
+    // dá append numa linha nova) e regravarArquivoCompleto (que reescreve o
+    // arquivo inteiro do zero) - as duas escreviam exatamente a mesma linha
+    // de formato pra um Usuario. Mesmo padrão usado em
+    // GerenciadorTransacoes::escreverLinhaTransacao.
+    void escreverLinhaUsuario(std::ofstream& arquivo, const Usuario& usuario) const;
+
+    // Reescreve usuarios.txt do zero a partir do estado atual de _usuarios.
+    // Necessário porque salvarUsuario só sabe dar append (linha nova); pra
+    // persistir uma mudança num usuário JÁ existente no arquivo (ex: um
+    // contador de compras/vendas concluídas que mudou), é preciso reescrever
+    // o arquivo inteiro - não tem como "editar uma linha no meio" de um
+    // arquivo de texto sequencial.
+    void regravarArquivoCompleto();
+
 public:
     GerenciadorUsuarios();
     bool registrarUsuario(const string& nome, const string& login, const string& senha, const string& chavePix = "");
     Usuario* autenticar(const string& loginIngressado, const string& senhaIngressado);
     Usuario* buscarUsuarioPorLogin(const std::string& login);
+
+    // Pontes pra progressão de Usuario: hoje não existe um GerenciadorTransacoes
+    // que já chame isso (Compra/Troca ainda não notificam ninguém ao concluir),
+    // mas o método já fica pronto pra ser plugado quando essa integração for
+    // feita. Buscam o usuário pelo login, atualizam o contador correspondente
+    // e persistem a mudança em usuarios.txt.
+    void notificarCompraConcluida(const std::string& loginUsuario);
+    void notificarVendaConcluida(const std::string& loginUsuario);
 };
 
 #endif

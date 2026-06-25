@@ -289,7 +289,10 @@ void TerminalUI::menuAnunciante(Usuario* usuario) {
             output.limparTela();
             output.mensagem("\n=== CAIXA DE ENTRADA (NOTIFICACOES) ===");
 
-            vector<Transacao*> propostas = sistema.getTransacoes().buscarPropostasRecebidas(usuario);
+            // Não há um sistema de notificações "push" ou assíncrono — é só essa tela que,
+            // quando aberta pelo vendedor, consulta as transações pendentes armazenadas e as lista como caixa de entrada
+            
+            vector<Transacao*> propostas = sistema.getTransacoes().buscarPropostasRecebidas(usuario);   
 
             if (propostas.empty()) {
                 output.mensagem("Nao tens propostas pendentes no momento.");

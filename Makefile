@@ -1,6 +1,8 @@
 CXX = g++
-# Flag -fprofile-dir=build garante que o lixo .gcda e .gcno vai direto para a pasta build!
-CFLAGS = -std=gnu++17 -I include --coverage -DDOCTEST_CONFIG_NO_MULTITHREADING -fprofile-dir=build
+# Sem -fprofile-dir: o .gcno/.gcda ja nascem em build/ porque -o aponta pra la.
+# (-fprofile-dir=build forcava o runtime a mangled o path absoluto no nome do .gcda,
+# o que quebrava o pareamento com o .gcno e fazia o gcov falhar.)
+CFLAGS = -std=gnu++17 -I include --coverage -DDOCTEST_CONFIG_NO_MULTITHREADING
 
 # Flags do binario de uso normal: sem --coverage/doctest, que so servem pros testes.
 APP_CFLAGS = -std=gnu++17 -I include
@@ -51,7 +53,15 @@ dirs:
 	@mkdir -p $(BUILD_DIR)
 	@mkdir -p $(COVERAGE_DIR)
 
+DADOS_PERSISTENCIA = usuarios.txt produtos.txt transacoes.txt
+
 test: clean dirs $(TESTES)
+	@echo ""
+	@echo "===== PROTEGENDO ARQUIVOS DE PERSISTENCIA ====="
+	@for f in $(DADOS_PERSISTENCIA); do \
+		[ -f $$f ] && cp $$f $(BUILD_DIR)/$$f.bak; \
+	done
+
 	-./$(BUILD_DIR)/TesteUsuario
 	-./$(BUILD_DIR)/TesteTerminalUI
 	-./$(BUILD_DIR)/TesteGerenciadorUsuarios
@@ -62,19 +72,30 @@ test: clean dirs $(TESTES)
 	-./$(BUILD_DIR)/TesteTransacao
 
 	@echo ""
-	@echo "===== ORGANIZANDO ARQUIVOS GERADOS ====="
-	@find . -type f \( -name "*.gcno" -o -name "*.gcda" \) ! -path "./$(BUILD_DIR)/*" -exec mv {} $(BUILD_DIR)/ \; || true
+	@echo "===== RESTAURANDO ARQUIVOS DE PERSISTENCIA ====="
+	@for f in $(DADOS_PERSISTENCIA); do \
+		[ -f $(BUILD_DIR)/$$f.bak ] && mv $(BUILD_DIR)/$$f.bak $$f; \
+	done
 
 	@echo ""
 	@echo "===== RELATORIO DE COBERTURA ====="
-	gcovr -r . --object-directory $(BUILD_DIR) --exclude 'tests/.*'
+	-gcovr -r . --object-directory $(BUILD_DIR) --exclude 'tests/.*'
 
 	@echo ""
 	@echo "===== RELATORIO HTML ====="
-	gcovr -r . --object-directory $(BUILD_DIR) --html --html-details -o $(COVERAGE_DIR)/coverage.html
+	-gcovr -r . --object-directory $(BUILD_DIR) --html --html-details -o $(COVERAGE_DIR)/coverage.html
 
 	@echo ""
-	@echo "Arquivo gerado: $(COVERAGE_DIR)/coverage.html"
+	@if [ -f $(COVERAGE_DIR)/coverage.html ]; then \
+		echo "Arquivo gerado: $(COVERAGE_DIR)/coverage.html"; \
+	else \
+		echo "AVISO: gcovr falhou, relatorio de cobertura nao foi gerado."; \
+	fi
+
+	@echo ""
+	@echo "===== LIMPANDO RESIDUOS DE COBERTURA ====="
+	@find $(BUILD_DIR) -maxdepth 1 -type f \( -name "*.gcno" -o -name "*.gcda" -o -name "*.gcov" \) -delete
+	@for t in $(TESTES); do rm -f $$t; done
 
 # Regras de compilação
 $(BUILD_DIR)/TesteUsuario:
